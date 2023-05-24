@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Implementation-Title: com.newrelic.instrumentation.labs.ktor-server-ne
- tty
-Implementation-Version: 1.0
-Implementation-Vendor-Id: com.newrelic.labs
-Implementation-Vendor: New Relic Labs
-
