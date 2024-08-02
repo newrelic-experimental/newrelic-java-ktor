@@ -1,10 +1,10 @@
 
-// Build.gradle generated for instrumentation module ktor-server-core
+// Build.gradle generated for instrumentation module netty-eventloop
 
 apply plugin: 'java'
 
 dependencies {
-    implementation 'io.ktor:ktor-server-core:2.0.0'
+   implementation 'io.netty:netty-common:4.1.8.Final'
 
    // New Relic Java Agent dependencies
    implementation 'com.newrelic.agent.java:newrelic-agent:6.4.0'
@@ -15,7 +15,7 @@ dependencies {
 
 jar {
   manifest {
-    attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.ktor-server-core-2.0.0'
+    attributes 'Implementation-Title': 'com.newrelic.instrumentation.netty-eventloop'
     attributes 'Implementation-Vendor': 'New Relic Labs'
     attributes 'Implementation-Vendor-Id': 'com.newrelic.labs'
     attributes 'Implementation-Version': 1.0
@@ -23,7 +23,6 @@ jar {
 }
 
 verifyInstrumentation {
-  passes 'io.ktor:ktor-server-core:[2.0.0,)'
-   excludeRegex '.*rc.*'
-   excludeRegex '.*beta.*'
+   passes 'io.netty:netty-common:[4.1.8.Final,)'
+   excludeRegex '.*Alpha.*'
 }
