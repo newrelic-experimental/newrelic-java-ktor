@@ -34,8 +34,11 @@ This use this instrumentation.
 ## Getting Started
 
 After deployment, you should get route names for your web transactions instead of the generic name provided by the agent.  
-You should also see deeper visibiity into what is happening in your application via the enhanced transaction traces/distributed traces provided by this instrumentation.       
-
+You should also see deeper visibiity into what is happening in your application via the enhanced transaction traces/distributed traces provided by this instrumentation.    
+   
+### Recommended Kotlin Coroutine Configuration   
+Ktor intiates a long running lazy Coroutine that will dominate the transaction times for your application unless it is ignored.  Please use this version or later (https://github.com/newrelic/newrelic-java-kotlin-coroutines/releases/tag/v1.0.4) to enable this feature and  add io.ktor.server.netty.cio.RequestBodyHandler to the scopes elemeent in the Coroutines stanza in newrelic.yml as shown here: https://github.com/newrelic/newrelic-java-kotlin-coroutines?tab=readme-ov-file#configuring-scopes-to-ignore    
+   
 ## Support
 
 New Relic has open-sourced this project. This project is provided AS-IS WITHOUT WARRANTY OR DEDICATED SUPPORT. Issues and contributions should be reported to the project here on GitHub.
