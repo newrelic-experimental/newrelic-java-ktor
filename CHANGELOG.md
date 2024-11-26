@@ -1,3 +1,6 @@
+## Version: [v2.1.0](https://github.com/newrelic-experimental/newrelic-java-ktor/releases/tag/v2.1.0) | Created: 2024-11-26
+
+
 ## Installation
 
 To install:
