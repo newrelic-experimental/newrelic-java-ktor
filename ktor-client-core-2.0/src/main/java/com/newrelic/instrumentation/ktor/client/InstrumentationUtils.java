@@ -1,61 +1,26 @@
 package com.newrelic.instrumentation.ktor.client;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
+import java.net.URI;
 
-import com.newrelic.agent.bridge.AgentBridge;
+import com.newrelic.api.agent.HttpParameters;
 
-import io.ktor.client.HttpClient;
+import io.ktor.client.request.HttpRequestBuilder;
+import io.ktor.http.HttpMethod;
+import io.ktor.http.URLBuilder;
+import io.ktor.http.Url;
 
 public class InstrumentationUtils {
-	
-	public static boolean HTTPCLIENT_INSTRUMENTED = false;
-	public static boolean HTTPSENDER_INSTRUMENTED = false;
-	private static InstrumentationUtils INSTANCE = new InstrumentationUtils();
-	private static final List<String> httpClient_Methods = new ArrayList<>();
-	
-	static {
-		httpClient_Methods.add("execute$ktor_client_core");
-	}
-	
-	private InstrumentationUtils() {
-		
-	}
-	
-	public static void instrumentHttpClient(HttpClient client) {
-		synchronized (INSTANCE) {
-			if (!HTTPCLIENT_INSTRUMENTED) {
-				Class<?> clazz = client.getClass();
-				Method[] methods = clazz.getMethods();
-				for(Method method : methods) {
-					String methodName = method.getName();
-					if(httpClient_Methods.contains(methodName)) {
-						AgentBridge.instrumentation.instrument(method, "Custom/HttpClient");
-						break;
-					}
-				}
-				HTTPCLIENT_INSTRUMENTED = true;
-			}
-		}
-	}
-	
-	public static void instrumentDefaultSender(Class<?> senderClass) {
-		synchronized (INSTANCE) {
-			if (!HTTPSENDER_INSTRUMENTED) {
-				Method[] methods = senderClass.getMethods();
-				for (Method method : methods) {
-					String methodName = method.getName();
-					if (methodName.equals("execute")) {
-						AgentBridge.instrumentation.instrument(method, "Custom/HttpSender");
-						break;
-					}
-				} 
-				HTTPSENDER_INSTRUMENTED = true;
-			}
-			
-		}
-		
-	}
 
+	public static HttpParameters getParams(HttpRequestBuilder builder) {
+		URLBuilder urlBuilder = builder.getUrl();
+		if(urlBuilder != null) {
+			
+			Url url = urlBuilder.build();
+			URI uri = URI.create(url.toString());
+			HttpMethod httpMethod = builder.getMethod();
+			return HttpParameters.library("Ktor-Client").uri(uri).procedure(httpMethod.getValue()).noInboundHeaders().build();
+		}
+		
+		return null;
+	}
 }
