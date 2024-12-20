@@ -23,7 +23,7 @@ jar {
 }
 
 verifyInstrumentation {
-   passes 'io.ktor:ktor-server-netty:[2.0.0,)'
+   passes 'io.ktor:ktor-server-netty:[2.0.0,3.0.0)'
    excludeRegex '.*beta.*'
    excludeRegex '.*rc.*'
 }

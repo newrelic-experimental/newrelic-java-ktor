@@ -9,11 +9,10 @@ import io.ktor.client.request.HttpRequestBuilder;
 import kotlin.coroutines.Continuation;
 
 @Weave
-public class HttpClient {
+public abstract class HttpClient {
 	
 	@Trace(dispatcher = true)
-	public final Object execute$ktor_client_core(HttpRequestBuilder builder, Continuation<? super HttpClientCall> var2) {
+	public Object execute$ktor_client_core(HttpRequestBuilder builder, Continuation<? super HttpClientCall> cont) {
 		return Weaver.callOriginal();
 	}
-
 }

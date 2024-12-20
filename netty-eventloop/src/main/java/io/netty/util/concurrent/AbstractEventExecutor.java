@@ -14,19 +14,19 @@ import com.newrelic.instrumentation.labs.netty.eventloop.Utils;
 public abstract class AbstractEventExecutor {
 
 	
-//	public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
-//		NRRunnable wrapper = Utils.getWrapper(command);
-//		if(wrapper != null) {
-//			command = wrapper;
-//		}	
-//		return Weaver.callOriginal();
-//	}
-//	
-//	public <V> ScheduledFuture<V> schedule(Callable<V> callable, long delay, TimeUnit unit) {
-//		NRCallable<V> wrapper = Utils.getWrapper(callable);
-//		if(wrapper != null) {
-//			callable = wrapper;
-//		}
-//		return Weaver.callOriginal();
-//	}
+	public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
+		NRRunnable wrapper = Utils.getWrapper(command);
+		if(wrapper != null) {
+			command = wrapper;
+		}	
+		return Weaver.callOriginal();
+	}
+	
+	public <V> ScheduledFuture<V> schedule(Callable<V> callable, long delay, TimeUnit unit) {
+		NRCallable<V> wrapper = Utils.getWrapper(callable);
+		if(wrapper != null) {
+			callable = wrapper;
+		}
+		return Weaver.callOriginal();
+	}
 }

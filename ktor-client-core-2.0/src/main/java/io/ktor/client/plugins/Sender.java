@@ -11,9 +11,9 @@ import kotlin.coroutines.Continuation;
 
 @Weave(type = MatchType.Interface)
 public abstract class Sender {
-
-	@Trace(dispatcher = true)
-	public Object execute(HttpRequestBuilder builder, Continuation<? super HttpClientCall> continuation) {
+	
+	@Trace
+	public Object execute(HttpRequestBuilder builder, Continuation<? super HttpClientCall> cont) {
 		
 		return Weaver.callOriginal();
 	}
