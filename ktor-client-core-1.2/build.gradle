@@ -2,6 +2,7 @@
 // Build.gradle generated for instrumentation module ktor-client-core
 
 apply plugin: 'java'
+apply plugin: 'org.jetbrains.kotlin.jvm'
 
 dependencies {
 	implementation 'io.ktor:ktor-client-core-jvm:1.2.0'
