@@ -1,22 +1,20 @@
 
-// Build.gradle generated for instrumentation module ktor-client-core
+// Build.gradle generated for instrumentation module ktor-server-core
 
 apply plugin: 'java'
 apply plugin: 'org.jetbrains.kotlin.jvm'
 
 dependencies {
-	implementation 'io.ktor:ktor-client-core-jvm:2.0.0'
+    implementation 'io.ktor:ktor-server-core-jvm:2.3.0'
 
    // New Relic Java Agent dependencies
-   implementation 'com.newrelic.agent.java:newrelic-agent:6.4.0'
-   implementation 'com.newrelic.agent.java:newrelic-api:6.4.0'
    implementation fileTree(include: ['*.jar'], dir: '../libs')
    implementation fileTree(include: ['*.jar'], dir: '../test-lib')
 }
 
 jar {
   manifest {
-    attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.ktor-client-core-2.0'
+    attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.ktor-server-core-2.3.0'
     attributes 'Implementation-Vendor': 'New Relic Labs'
     attributes 'Implementation-Vendor-Id': 'com.newrelic.labs'
     attributes 'Implementation-Version': 1.0
@@ -24,7 +22,7 @@ jar {
 }
 
 verifyInstrumentation {
-   passes 'io.ktor:ktor-client-core-jvm:[2.0.0,)'
-   excludeRegex '.*beta.*'
+  passes 'io.ktor:ktor-server-core:[2.3.0,3.0.0)'
    excludeRegex '.*rc.*'
+   excludeRegex '.*beta.*'
 }
