@@ -1,0 +1,27 @@
+
+// Build.gradle generated for instrumentation module ktor-utils
+
+apply plugin: 'java'
+apply plugin: 'org.jetbrains.kotlin.jvm'
+
+dependencies {
+    implementation 'io.ktor:ktor-utils:1.4.0'
+   // New Relic Java Agent dependencies
+   implementation fileTree(include: ['*.jar'], dir: '../libs')
+   implementation fileTree(include: ['*.jar'], dir: '../test-lib')
+}
+
+jar {
+  manifest {
+    attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.ktor-utils-1.4'
+    attributes 'Implementation-Vendor': 'New Relic Labs'
+    attributes 'Implementation-Vendor-Id': 'com.newrelic.labs'
+    attributes 'Implementation-Version': 1.0
+  }
+}
+
+verifyInstrumentation {
+    passes 'io.ktor:ktor-utils:[1.4.0,2.0.0)'
+    excludeRegex '.*rc.*'
+    excludeRegex '.*beta.*'
+}
