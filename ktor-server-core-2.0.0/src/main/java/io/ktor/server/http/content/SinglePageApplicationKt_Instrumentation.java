@@ -1,5 +1,6 @@
 package io.ktor.server.http.content;
 
+import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
@@ -22,26 +23,31 @@ public class SinglePageApplicationKt_Instrumentation {
 
     @Trace
     public static void angular(SPAConfig spaConfig, String filesPath) {
+        NewRelic.getAgent().getTracedMethod().addCustomAttribute("FilesPath", filesPath);
         Weaver.callOriginal();
     }
 
     @Trace
     public static void react(SPAConfig spaConfig, String filesPath) {
+        NewRelic.getAgent().getTracedMethod().addCustomAttribute("FilesPath", filesPath);
         Weaver.callOriginal();
     }
 
     @Trace
     public static void vue(SPAConfig spaConfig, String filesPath) {
+        NewRelic.getAgent().getTracedMethod().addCustomAttribute("FilesPath", filesPath);
         Weaver.callOriginal();
     }
 
     @Trace
     public static void ember(SPAConfig spaConfig, String filesPath) {
+        NewRelic.getAgent().getTracedMethod().addCustomAttribute("FilesPath", filesPath);
         Weaver.callOriginal();
     }
 
     @Trace
     public static void backbone(SPAConfig spaConfig, String filesPath) {
+        NewRelic.getAgent().getTracedMethod().addCustomAttribute("FilesPath", filesPath);
         Weaver.callOriginal();
     }
 }

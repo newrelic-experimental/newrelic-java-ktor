@@ -7,19 +7,23 @@ import com.newrelic.api.agent.TracedMethod;
 import com.newrelic.api.agent.Transaction;
 import com.newrelic.api.agent.TransactionNamePriority;
 
-import io.ktor.routing.Route;
-import io.ktor.routing.RouteSelector;
+import io.ktor.server.routing.Route;
+import io.ktor.server.routing.RouteSelector;
 import kotlin.jvm.functions.Function3;
+import org.jetbrains.annotations.Nullable;
 
-public class NRFunction3Wrapper<A,B,C,D> implements Function3<A,B,C,D> {
-	
+public class NRFunction3RoutingWrapper<A,B,C,D> implements Function3<A,B,C,D> {
+
 	private Function3<A,B,C,D> delegate = null;
-	private Route route = null;
+	private @Nullable String path = null;
+	private @Nullable String method = null;
+
 	private static boolean isTransformed = false;
-		
-	public NRFunction3Wrapper( Function3<A, B, C,D> d, Route r) {
+
+	public NRFunction3RoutingWrapper( Function3<A, B, C,D> d, @Nullable String path, @Nullable String method) {
 		delegate = d;
-		route = r;
+		this.path = path;
+		this.method = method;
 		if(!isTransformed) {
 			AgentBridge.instrumentation.retransformUninstrumentedClass(getClass());
 			isTransformed = true;
@@ -34,19 +38,13 @@ public class NRFunction3Wrapper<A,B,C,D> implements Function3<A,B,C,D> {
 			transaction.convertToWebTransaction();
 		}
 		TracedMethod traced = NewRelic.getAgent().getTracedMethod();
-		if(route != null) {
-			String routeString = route.toString();
-			if(routeString != null && !routeString.isEmpty()) {
-				routeString = routeString.replace("/(method:", " (");
+		if(method != null) {
+			String routeString = path != null ? path + " (" + method + ")" : "(" + method + ")";
+			routeString = routeString.replace("/(method:", " (");
+			if(path != null) {
 				NewRelic.getAgent().getTransaction().setTransactionName(TransactionNamePriority.CUSTOM_LOW, true, "Ktor-Server", routeString);
 			}
 		}
-		RouteSelector selector = route != null ? route.getSelector() : null;
-		if(selector != null) {
-			traced.addCustomAttribute("Selector", selector.toString());
-			traced.addCustomAttribute("Selector-Class", selector.getClass().toString());
-		}
-		
 		return delegate.invoke(arg0, arg1, arg2);
 	}
 
