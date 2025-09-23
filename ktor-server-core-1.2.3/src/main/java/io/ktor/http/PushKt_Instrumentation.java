@@ -16,10 +16,12 @@ public class PushKt_Instrumentation {
         Weaver.callOriginal();
     }
 
+    @Trace
     public static void push(ApplicationCall call, String pathAndQuery, Parameters params) {
         Weaver.callOriginal();
     }
 
+    @Trace
     public static void push(ApplicationCall call, Function1<? super ResponsePushBuilder, Unit> function1) {
         Weaver.callOriginal();
     }
