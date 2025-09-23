@@ -2,7 +2,7 @@
 // Build.gradle generated for instrumentation module ktor-utils
 
 apply plugin: 'java'
-apply plugin: 'org.jetbrains.kotlin.jvm'
+apply plugin: 'kotlin'
 
 dependencies {
     implementation 'io.ktor:ktor-utils:1.4.0'
