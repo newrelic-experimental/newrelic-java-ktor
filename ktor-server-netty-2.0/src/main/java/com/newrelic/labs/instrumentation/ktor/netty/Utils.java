@@ -1,20 +1,18 @@
 package com.newrelic.labs.instrumentation.ktor.netty;
 
+import com.newrelic.instrumentation.labs.ktor.netty.CoroutineNameUtilsKt;
 import io.ktor.http.HttpMethod;
 import io.ktor.http.RequestConnectionPoint;
 import io.ktor.server.application.Application;
 import kotlin.coroutines.CoroutineContext;
-import kotlinx.coroutines.CoroutineName;
+import org.jetbrains.annotations.Nullable;
 
 public class Utils {
 
 	
 	public static String getCoroutineName(CoroutineContext context) {
-		CoroutineName cName = context.get(CoroutineName.Key);
-		if(cName != null) {
-			String name = cName.getName();
-			if(name != null && !name.isEmpty()) return name;
-		}
+		@Nullable String name = CoroutineNameUtilsKt.getCoroutineName(context);
+		if(name != null && !name.isEmpty()) return name;
 
 		return null;
 	}
