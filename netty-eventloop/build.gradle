@@ -7,7 +7,10 @@ dependencies {
    implementation 'io.netty:netty-common:4.1.8.Final'
 
    // New Relic Java Agent dependencies
-   implementation fileTree(include: ['*.jar'], dir: '../libs')
+    implementation 'com.newrelic.agent.java:newrelic-api:8.4.0'
+    implementation 'com.newrelic.agent.java:newrelic-agent:8.4.0'
+    implementation 'com.newrelic.agent.java:newrelic-weaver-api:8.4.0'
+    implementation 'com.newrelic.agent.java:agent-bridge:8.4.0'
    implementation fileTree(include: ['*.jar'], dir: '../test-lib')
 }
 
