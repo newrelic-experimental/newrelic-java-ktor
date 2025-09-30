@@ -2,6 +2,7 @@ package com.newrelic.instrumentation.labs.ktor.netty
 
 import com.newrelic.api.agent.HeaderType
 import com.newrelic.api.agent.Headers
+import java.util.Collections
 
 class KtorNettyHeaders(private val ktorHeaders: io.ktor.http.Headers) : Headers {
 
@@ -17,7 +18,11 @@ class KtorNettyHeaders(private val ktorHeaders: io.ktor.http.Headers) : Headers 
 
     override fun getHeaders(name: String): Collection<String?>? {
         val values = ktorHeaders.getAll(name)
-        return values
+        if (values != null) {
+            return values
+        } else {
+            return Collections.emptyList()
+        }
     }
 
     override fun setHeader(p0: String?, p1: String?) {
