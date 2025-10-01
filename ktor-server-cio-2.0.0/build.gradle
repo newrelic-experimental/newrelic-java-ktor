@@ -26,10 +26,8 @@ jar {
 }
 
 verifyInstrumentation {
-    passes 'io.ktor:ktor-server-cio-jvm:[2.0.0,)'
-  // Verifier plugin documentation:
-  // https://github.com/newrelic/newrelic-gradle-verify-instrumentation
-  // Example:
-  // passes 'javax.servlet:servlet-api:[2.2,2.5]'
-  // exclude 'javax.servlet:servlet-api:2.4.public_draft'
+    passesOnly 'io.ktor:ktor-server-cio-jvm:[2.0.0,)'
+    excludeRegex '.*rc.*'
+    excludeRegex '.*alpha.*'
+    excludeRegex '.*beta.*'
 }
