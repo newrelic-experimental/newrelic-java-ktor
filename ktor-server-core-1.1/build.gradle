@@ -25,7 +25,8 @@ jar {
 }
 
 verifyInstrumentation {
-  passes 'io.ktor:ktor-server-core:[1.1.1,1.5.0)'
+  passesOnly 'io.ktor:ktor-server-core:[1.0.0,1.2.3)'
+    fails 'io.ktor:ktor-server-core:1.1.0'
    excludeRegex '.*rc.*'
    excludeRegex '.*beta.*'
 }

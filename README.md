@@ -23,13 +23,16 @@ Provides instrumentation of both the client and server sides of Ktor.  This incl
 
 ## Installation
 
-It is recommended to also use the instrumentation for Kotlin Coroutines: https://github.com/newrelic/newrelic-java-kotlin-coroutines    
+It is recommended to also use the instrumentation for Kotlin Coroutines: https://github.com/newrelic/newrelic-java-kotlin-coroutines  
+Additionally it recommended to version 8.20.0 of the New Relic Java Agent in order to avoid problems with the retransformation of Kotlin classes.  This requires you to include a system property in the startup arguments of your application.  Include -Dnewrelic.config.class_transformer.clear_return_stacks=true   
+See 8.20.0 Release Notes for more details (https://docs.newrelic.com/docs/release-notes/agent-release-notes/java-release-notes/java-agent-8200/)   
    
 This use this instrumentation.   
 1. Download the latest release.    
 2. In the New Relic Java Agent directory (directory containing newrelic.jar), create a directory named extensions if it doe not already exist.   
-3. Copy the jars into the extensions directory.   
-4. Restart the application.   
+3. Copy the jars into the extensions directory.  
+4. Add System Property described above to the startup arguments.
+5. Restart the application.   
 
 ## Getting Started
 
@@ -38,6 +41,7 @@ You should also see deeper visibiity into what is happening in your application 
    
 ### Recommended Kotlin Coroutine Configuration   
 Ktor intiates a long running lazy Coroutine that will dominate the transaction times for your application unless it is ignored.  Please use this version or later (https://github.com/newrelic/newrelic-java-kotlin-coroutines/releases/tag/v1.0.4) to enable this feature and  add io.ktor.server.netty.cio.RequestBodyHandler to the scopes elemeent in the Coroutines stanza in newrelic.yml as shown here: https://github.com/newrelic/newrelic-java-kotlin-coroutines?tab=readme-ov-file#configuring-scopes-to-ignore    
+The Kotlin Coroutines instrumentation also will trace suspend functions so it recommended that you ignore internal Ktor suspend functions by adding the regular expression ".\*io\\.ktor\\..\*" to the list of suspends to ignore.   
    
 ## Support
 

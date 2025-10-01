@@ -25,7 +25,7 @@ jar {
 }
 
 verifyInstrumentation {
-   passes 'io.ktor:ktor-client-core-jvm:[2.0.0,)'
+    passesOnly 'io.ktor:ktor-client-core-jvm:[2.0.0,)'
    excludeRegex '.*beta.*'
    excludeRegex '.*rc.*'
 }
