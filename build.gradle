@@ -1,5 +1,3 @@
-
-
 // Global defaults - override here or in individual modules as needed.
 buildscript {
   repositories {
@@ -204,3 +202,5 @@ subprojects {
      }
   }
 }
+
+ext.version = "2.2.0"
