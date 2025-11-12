@@ -1,0 +1,37 @@
+
+// Build.gradle generated for instrumentation module ktor-server-jetty-jakarta-3.0
+
+apply plugin: 'java'
+
+dependencies {
+   implementation("io.ktor:ktor-server-jetty-jakarta-jvm:3.1.0")
+
+   // New Relic Java Agent dependencies
+   implementation 'com.newrelic.agent.java:newrelic-agent:8.4.0'
+   implementation 'com.newrelic.agent.java:newrelic-api:8.4.0'
+   implementation 'com.newrelic.agent.java:newrelic-weaver-api:8.4.0'
+   implementation 'com.newrelic.agent.java:agent-bridge:8.4.0'
+   implementation fileTree(include: ['*.jar'], dir: '../libs')
+   implementation fileTree(include: ['*.jar'], dir: '../test-lib')
+   
+   // Jakarta Servlet API for compilation
+   compileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+}
+
+jar {
+  manifest {
+    attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.ktor-server-jetty-jakarta-3.1'
+    attributes 'Implementation-Vendor': 'New Relic Labs'
+    attributes 'Implementation-Vendor-Id': 'com.newrelic.labs'
+    attributes 'Implementation-Version': project.rootProject.ext.version
+  }
+}
+
+verifyInstrumentation {
+  // Verifier plugin documentation:
+  // https://github.com/newrelic/newrelic-gradle-verify-instrumentation
+  // Verify against the Jakarta servlet version of Ktor Jetty 3.1
+  passes 'io.ktor:ktor-server-jetty-jakarta-jvm:[3.1.0,3.3.0)'
+  exclude 'io.ktor:ktor-server-jetty-jakarta-jvm:*-beta*'
+  exclude 'io.ktor:ktor-server-jetty-jakarta-jvm:*-rc*'
+}
