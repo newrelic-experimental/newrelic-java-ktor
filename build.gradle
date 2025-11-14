@@ -2,7 +2,8 @@
 
 // Global defaults - override here or in individual modules as needed.
 buildscript {
-  repositories {
+    ext.kotlin_version = '1.8.21'
+    repositories {
     flatDir dirs: 'template-lib'
     mavenLocal()
     mavenCentral()
@@ -12,6 +13,7 @@ buildscript {
   dependencies {
     classpath 'gradle-templates:gradle-templates:1.5'
     classpath 'com.newrelic.agent.java:gradle-verify-instrumentation-plugin:3.2'
+      classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
   }
 }
 
@@ -30,6 +32,7 @@ project.ext {
 }
 
 apply plugin: 'java'
+apply plugin: 'kotlin'
 apply plugin: 'de.undercouch.download'
 
 import templates.*
@@ -203,4 +206,12 @@ subprojects {
          throw new Exception(extDir + "NEW_RELIC_EXTENSIONS_DIR, set as '" + extDir + "'is not a valid directory.")
      }
   }
+}
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
+compileKotlin {
 }

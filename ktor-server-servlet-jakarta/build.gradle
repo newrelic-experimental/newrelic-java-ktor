@@ -5,9 +5,9 @@ apply plugin: 'java'
 apply plugin: 'kotlin'
 
 dependencies {
-   implementation group: 'io.ktor', name: 'ktor-server-servlet', version: '1.5.0'
+   implementation group: 'io.ktor', name: 'ktor-server-servlet-jakarta', version: '3.0.0'
    // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
-   implementation group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.0'
+   implementation 'jakarta.servlet:jakarta.servlet-api:6.0.0'
    
    // New Relic Java Agent dependencies
     implementation 'com.newrelic.agent.java:newrelic-api:8.4.0'
@@ -19,7 +19,7 @@ dependencies {
 
 jar {
   manifest {
-    attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.ktor-server-servlet'
+    attributes 'Implementation-Title': 'com.newrelic.instrumentation.labs.ktor-server-servlet-jakarta'
     attributes 'Implementation-Vendor': 'New Relic Labs'
     attributes 'Implementation-Vendor-Id': 'com.newrelic.labs'
     attributes 'Implementation-Version': 1.0
@@ -27,4 +27,8 @@ jar {
 }
 
 verifyInstrumentation {
+    passesOnly("io.ktor:ktor-server-servlet-jakarta-jvm:[3.0.0,)") {
+        compile  'jakarta.servlet:jakarta.servlet-api:6.0.0'
+    }
+    excludeRegex '.*rc.*'
 }
