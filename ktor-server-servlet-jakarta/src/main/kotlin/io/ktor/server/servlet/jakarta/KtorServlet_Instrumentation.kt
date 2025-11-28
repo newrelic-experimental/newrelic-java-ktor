@@ -1,4 +1,4 @@
-package io.ktor.server.servlet
+package io.ktor.server.servlet.jakarta
 
 import com.newrelic.api.agent.NewRelic
 import com.newrelic.api.agent.Token
@@ -8,11 +8,11 @@ import com.newrelic.api.agent.weaver.MatchType
 import com.newrelic.api.agent.weaver.NewField
 import com.newrelic.api.agent.weaver.Weave
 import com.newrelic.api.agent.weaver.Weaver
-import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
+import jakarta.servlet.http.HttpServletRequest
+import jakarta.servlet.http.HttpServletResponse
 import java.util.logging.Level
 
-@Weave(originalName = "io.ktor.server.servlet.KtorServlet", type = MatchType.BaseClass)
+@Weave(originalName = "io.ktor.server.servlet.jakarta.KtorServlet", type = MatchType.BaseClass)
 public abstract class KtorServlet_Instrumentation {
 
     @NewField
