@@ -4,10 +4,12 @@ import com.newrelic.api.agent.NewRelic
 import com.newrelic.api.agent.Token
 import com.newrelic.api.agent.Trace
 import com.newrelic.api.agent.TransactionNamePriority
+import com.newrelic.api.agent.TransportType
 import com.newrelic.api.agent.weaver.MatchType
 import com.newrelic.api.agent.weaver.NewField
 import com.newrelic.api.agent.weaver.Weave
 import com.newrelic.api.agent.weaver.Weaver
+import com.newrelic.labs.instrumentation.ktor.servlet.jakarta.ServletRequestHeaders
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import java.util.logging.Level
@@ -28,6 +30,10 @@ public abstract class KtorServlet_Instrumentation {
         if (!transaction.isWebTransaction()) {
             transaction.convertToWebTransaction()
         }
+
+        // Accept distributed trace headers from incoming request
+        val headers = ServletRequestHeaders(request)
+        transaction.acceptDistributedTraceHeaders(TransportType.HTTP, headers)
 
         val uri = request.getRequestURI() ?: "Unknown"
         val method = request.getMethod() ?: "GET"
@@ -91,6 +97,10 @@ public abstract class KtorServlet_Instrumentation {
         if (!transaction.isWebTransaction()) {
             transaction.convertToWebTransaction()
         }
+
+        // Accept distributed trace headers from incoming request
+        val headers = ServletRequestHeaders(request)
+        transaction.acceptDistributedTraceHeaders(TransportType.HTTP, headers)
 
         val uri = request.getRequestURI() ?: "Unknown"
         val method = request.getMethod() ?: "GET"

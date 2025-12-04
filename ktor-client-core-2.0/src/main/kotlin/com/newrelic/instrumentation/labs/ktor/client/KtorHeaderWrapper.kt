@@ -1,4 +1,4 @@
-package io.ktor.client.plugins
+package com.newrelic.instrumentation.labs.ktor.client
 
 import com.newrelic.api.agent.HeaderType
 import com.newrelic.api.agent.Headers
@@ -18,7 +18,7 @@ class KtorHeaderWrapper(private val headersBuilder: HeadersBuilder) : Headers {
         headersBuilder.getAll(name) ?: emptyList()
 
     override fun setHeader(name: String, value: String) {
-        headersBuilder.append(name, value)
+        headersBuilder.set(name, value)
     }
 
     override fun addHeader(name: String, value: String) {
