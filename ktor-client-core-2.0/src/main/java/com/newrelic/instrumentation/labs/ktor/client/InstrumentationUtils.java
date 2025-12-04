@@ -1,4 +1,4 @@
-package com.newrelic.instrumentation.ktor.client;
+package com.newrelic.instrumentation.labs.ktor.client;
 
 import java.net.URI;
 
