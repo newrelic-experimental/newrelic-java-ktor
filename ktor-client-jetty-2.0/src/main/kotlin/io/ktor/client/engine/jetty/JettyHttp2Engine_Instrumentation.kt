@@ -30,25 +30,40 @@ internal class JettyHttp2Engine_Instrumentation {
      */
     @Trace(leaf = true)
     public suspend fun execute(data: HttpRequestData): HttpResponseData {
-        // Extract request details
-        val url = data.url
-        val uri = URI.create(url.toString())
-        val method = data.method.toString()
+        // Defensive null check and instrumentation (required for Kotlin suspend function Weave instrumentation)
+        if (data != null) {
+            try {
+                // Extract request details
+                val url = data.url
+                val uri = URI.create(url.toString())
+                val method = data.method.toString()
 
-        // Note: DT headers are added at the Sender level in ktor-client-core-2.0
-        // before the request reaches the engine
+                // Note: DT headers are added at the Sender level in ktor-client-core-2.0
+                // before the request reaches the engine
 
-        // Build external parameters
-        val params = HttpParameters.library("Ktor-Jetty")
-            .uri(uri)
-            .procedure(method)
-            .noInboundHeaders()
-            .build()
+                // Build external parameters
+                val params = HttpParameters.library("Ktor-Jetty")
+                    .uri(uri)
+                    .procedure(method)
+                    .noInboundHeaders()
+                    .build()
 
-        // Report as external call
-        NewRelic.getAgent().tracedMethod.reportAsExternal(params)
+                // Report as external call
+                NewRelic.getAgent().tracedMethod.reportAsExternal(params)
+            } catch (e: Throwable) {
+                NewRelic.getAgent().logger.log(
+                    java.util.logging.Level.WARNING,
+                    "Error in JettyHttp2Engine instrumentation: ${e.message}"
+                )
+            }
+        } else {
+            NewRelic.getAgent().logger.log(
+                java.util.logging.Level.WARNING,
+                "HttpRequestData is null in JettyHttp2Engine.execute() - skipping instrumentation"
+            )
+        }
 
-        // Call original method
+        // Call original method (only one call allowed)
         return Weaver.callOriginal()
     }
 }
