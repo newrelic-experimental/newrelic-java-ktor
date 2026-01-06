@@ -62,13 +62,13 @@ class Endpoint_Instrumentation {
 
             } catch (e: Throwable) {
                 NewRelic.getAgent().logger.log(
-                    java.util.logging.Level.WARNING,
+                    java.util.logging.Level.FINER,
                     "Error in Endpoint (CIO) instrumentation: ${e.message}"
                 )
             }
         } else {
             NewRelic.getAgent().logger.log(
-                java.util.logging.Level.WARNING,
+                java.util.logging.Level.FINER,
                 "HttpRequestData is null in Endpoint.execute() - skipping instrumentation"
             )
         }

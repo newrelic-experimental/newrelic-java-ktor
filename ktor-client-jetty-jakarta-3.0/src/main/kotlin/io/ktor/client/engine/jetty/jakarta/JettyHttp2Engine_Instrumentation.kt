@@ -56,13 +56,13 @@ internal class JettyHttp2Engine_Instrumentation {
                 NewRelic.getAgent().tracedMethod.reportAsExternal(params)
             } catch (e: Throwable) {
                 NewRelic.getAgent().logger.log(
-                    java.util.logging.Level.WARNING,
+                    java.util.logging.Level.FINER,
                     "Error in JettyHttp2Engine (Jakarta) instrumentation: ${e.message}"
                 )
             }
         } else {
             NewRelic.getAgent().logger.log(
-                java.util.logging.Level.WARNING,
+                java.util.logging.Level.FINER,
                 "HttpRequestData is null in JettyHttp2Engine (Jakarta).execute() - skipping instrumentation"
             )
         }
