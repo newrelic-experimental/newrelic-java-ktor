@@ -39,7 +39,7 @@ public class KtorHeaders implements Headers {
 
 	@Override
 	public void setHeader(String name, String value) {
-		builder.append(name, value);
+		builder.set(name, value);
 	}
 
 	@Override

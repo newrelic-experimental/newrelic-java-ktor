@@ -5,7 +5,8 @@ import com.newrelic.api.agent.weaver.Weave
 import com.newrelic.api.agent.weaver.Weaver
 
 @Weave(originalName = "io.ktor.client.statement.HttpStatement")
-class HttpStatement_Instrumentation {
+public class HttpStatement_Instrumentation
+{
 
     @Trace
     public suspend fun <T> execute(block: suspend (response: HttpResponse) -> T): T {
