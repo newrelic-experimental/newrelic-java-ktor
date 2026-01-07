@@ -181,7 +181,7 @@ jobs:
            git commit -m "Update Changelog for Release [skip ci]"
 
           # Push the changes to the remote repository
-           git push --quiet --set-upstream origin HEAD
+          # git push --quiet --set-upstream origin HEAD
       
       - name: Get Compare URL
         run: |
