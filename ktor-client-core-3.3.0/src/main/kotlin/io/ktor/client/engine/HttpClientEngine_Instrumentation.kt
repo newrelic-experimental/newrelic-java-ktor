@@ -51,6 +51,23 @@ abstract class HttpClientEngine_Instrumentation : CoroutineScope {
 
         return Weaver.callOriginal()
     }
-
 }
 
+/**
+ * Instruments the internal framework method that wraps execute().
+ * Provides visibility into the Ktor framework call stack.
+ */
+@Trace(dispatcher = true)
+private suspend fun executeWithinCallContext(requestData: HttpRequestData): HttpResponseData {
+//    var token : Token? = InstrumentationUtils.getToken(coroutineContext);
+//    if(token != null) {
+//        token.link();
+//        InstrumentationUtils.expireToken(coroutineContext);
+//        token = null;
+//    }
+    NewRelic.getAgent().tracedMethod.setMetricName(
+        "Custom", "Ktor-Client", "HttpClientEngine", "executeWithinCallContext"
+    )
+    // Do NOT report as external - let execute() method handle it
+    return Weaver.callOriginal()
+}
