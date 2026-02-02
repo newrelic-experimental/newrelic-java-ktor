@@ -29,7 +29,7 @@ buildscript {
 
 plugins {
     id("java")
-     id("org.jetbrains.kotlin.jvm") version "2.3.0"
+     id("org.jetbrains.kotlin.jvm") version "2.2.21"
 }
 
 apply(plugin = "java")
