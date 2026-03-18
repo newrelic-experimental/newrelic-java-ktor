@@ -28,8 +28,8 @@ tasks.jar {
 }
 
 verifyInstrumentation {
-   passesOnly("io.ktor:ktor-server-netty:[1.0.0,1.1.0)")
-   passesOnly("io.ktor:ktor-server-netty:(1.1.0,2.0.0)'=")
+   passes("io.ktor:ktor-server-netty:[1.0.0,1.1.0)")
+   passes("io.ktor:ktor-server-netty:(1.1.0,2.0.0)'=")
    excludeRegex(".*beta.*")
    excludeRegex(".*rc.*")
 }

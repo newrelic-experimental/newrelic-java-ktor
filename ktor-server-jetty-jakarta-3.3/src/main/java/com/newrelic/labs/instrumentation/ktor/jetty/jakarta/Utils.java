@@ -8,20 +8,6 @@ import com.newrelic.api.agent.TracedMethod;
 
 public class Utils {
 
-    public static boolean initialized = false;
-
-    public static void init() {
-        if(initialized) {
-            return;
-        }
-        KotlinCoroutinesService coroutinesService = ServiceFactory.getKotlinCoroutinesService();
-        String pattern = "io\\.ktor\\.server\\.jetty\\.jakarta\\..*";
-        coroutinesService.addIgnoredRegExContinuation(pattern);
-        coroutinesService.addIgnoredRegexSuspends(pattern);
-        coroutinesService.addIgnoredRegexDispatched(pattern);
-        initialized = true;
-    }
-
     public static String getApplicationName(Application app) {
         if (app != null) {
             return app.getClass().getSimpleName();

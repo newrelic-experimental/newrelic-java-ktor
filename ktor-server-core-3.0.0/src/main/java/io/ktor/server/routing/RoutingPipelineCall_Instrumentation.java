@@ -4,7 +4,6 @@ import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.TransactionNamePriority;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.instrumentation.labs.ktor.server.KtorExtendedRequest;
-import com.newrelic.instrumentation.labs.ktor.server.KtorServerUtils;
 import io.ktor.http.Parameters;
 import io.ktor.server.application.PipelineCall;
 import io.ktor.server.request.ApplicationReceivePipeline;
@@ -18,9 +17,6 @@ public class RoutingPipelineCall_Instrumentation {
 
     public RoutingPipelineCall_Instrumentation(PipelineCall pipelineCall, RoutingNode routingNode,CoroutineContext coroutineContext,
             ApplicationReceivePipeline applicationReceivePipeline, ApplicationSendPipeline applicationSendPipeline, Parameters parameters) {
-        if(!KtorServerUtils.initialized) {
-            KtorServerUtils.init();
-        }
         NewRelic.getAgent().getLogger().log(Level.FINE, "Call to RoutingPipelineCall.<init>({0}, {1}, {2}, {3})", pipelineCall, routingNode, coroutineContext, applicationReceivePipeline, applicationSendPipeline, parameters);
         KtorExtendedRequest extendedRequest = new KtorExtendedRequest(pipelineCall);
         NewRelic.getAgent().getTransaction().setWebRequest(extendedRequest);

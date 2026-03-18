@@ -1,29 +1,21 @@
 package io.ktor.server.netty
 
-import com.newrelic.api.agent.NewRelic
-import com.newrelic.api.agent.Trace
-import com.newrelic.api.agent.Transaction
-import com.newrelic.api.agent.TransactionNamePriority
-import com.newrelic.api.agent.TransportType
+import com.newrelic.api.agent.*
 import com.newrelic.api.agent.weaver.Weave
 import com.newrelic.api.agent.weaver.Weaver
 import com.newrelic.labs.instrumentation.ktor.netty.KtorNettyHeaders
 import com.newrelic.labs.instrumentation.ktor.netty.Utils
-import io.ktor.application.ApplicationCall
+import io.ktor.application.*
+import io.ktor.http.*
 import io.ktor.http.Headers
-import io.ktor.http.RequestConnectionPoint
-import io.ktor.request.ApplicationRequest
+import io.ktor.request.*
 import io.netty.channel.ChannelHandlerContext
-import kotlinx.coroutines.newSingleThreadContext
 
 @Weave(originalName = "io.ktor.server.netty.NettyApplicationCallHandler")
 class NettyApplicationCallHandler_Instrumentation {
 
     @Trace
     private fun handleRequest(context: ChannelHandlerContext, call: ApplicationCall) {
-        if(!Utils.initialized) {
-            Utils.init()
-        }
         val transaction : Transaction = NewRelic.getAgent().transaction;
         if(!transaction.isWebTransaction()) {
             transaction.convertToWebTransaction()

@@ -16,9 +16,6 @@ class NettyApplicationCallHandler_Instrumentation {
 
     @Trace
     private fun handleRequest(context: ChannelHandlerContext, call: ApplicationCall) {
-        if (!Utils.initialized) {
-            Utils.init()
-        }
         val appName = Utils.getApplicationName(call.application)
         if(!appName.isNullOrBlank()) {
             NewRelic.getAgent().tracedMethod.addCustomAttribute("appName", appName)

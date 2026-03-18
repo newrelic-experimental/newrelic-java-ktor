@@ -1,7 +1,6 @@
 package io.ktor.server.jetty;
 
 import com.newrelic.api.agent.NewRelic;
-import com.newrelic.api.agent.Token;
 import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.TracedMethod;
 import com.newrelic.api.agent.Transaction;
@@ -14,7 +13,6 @@ import com.newrelic.labs.instrumentation.ktor.jetty.Utils;
 import org.eclipse.jetty.server.Request;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import io.ktor.server.application.ApplicationCall;
 
 @Weave(originalName = "io.ktor.server.jetty.JettyKtorHandler")
 public abstract class JettyKtorHandler_Instrumentation {
@@ -26,9 +24,6 @@ public abstract class JettyKtorHandler_Instrumentation {
 
     @Trace(dispatcher = true)
     public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) {
-        if(!Utils.initialized) {
-            Utils.init();
-        }
         TracedMethod traced = NewRelic.getAgent().getTracedMethod();
         Transaction transaction = NewRelic.getAgent().getTransaction();
         

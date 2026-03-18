@@ -12,9 +12,6 @@ class NettyRequestQueue_Instrumentation {
 
     @Trace
     fun schedule(call: NettyApplicationCall) {
-        if(!Utils.initialized) {
-            Utils.init()
-        }
         val application = call.application
         val appName = Utils.getApplicationName(application)
         NewRelic.getAgent().tracedMethod.addCustomAttribute("Application", appName)

@@ -19,9 +19,6 @@ class NettyApplicationCallHandler_Instrumentation {
 
     @Trace
     private fun handleRequest(context: ChannelHandlerContext, call: PipelineCall) {
-        if (!Utils.initialized) {
-            Utils.init()
-        }
         NewRelic.getAgent().logger.log(Level.FINE, "Call to NettyApplicationCallHandler.handleRequest({0},{1})", context, call)
         val appName = Utils.getApplicationName(call.application)
         if(!appName.isNullOrBlank()) {

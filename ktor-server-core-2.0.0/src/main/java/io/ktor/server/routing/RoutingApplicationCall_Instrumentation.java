@@ -4,7 +4,6 @@ import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.TransactionNamePriority;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.instrumentation.labs.ktor.server.KtorExtendedRequest;
-import com.newrelic.instrumentation.labs.ktor.server.KtorServerUtils;
 import io.ktor.http.Parameters;
 import io.ktor.server.application.ApplicationCall;
 import io.ktor.server.request.ApplicationReceivePipeline;
@@ -15,9 +14,6 @@ import kotlin.coroutines.CoroutineContext;
 public class RoutingApplicationCall_Instrumentation {
 
     public RoutingApplicationCall_Instrumentation(ApplicationCall call, Route route, CoroutineContext context, ApplicationReceivePipeline requestPipeline, ApplicationSendPipeline sendPipeline, Parameters parameters) {
-        if(!KtorServerUtils.initialized) {
-            KtorServerUtils.init();
-        }
         KtorExtendedRequest extendedRequest = new KtorExtendedRequest(call);
         NewRelic.getAgent().getTransaction().setWebRequest(extendedRequest);
         NewRelic.getAgent().getTransaction().setTransactionName(TransactionNamePriority.CUSTOM_HIGH, false, "KtorServerRouting", route.toString());

@@ -5,7 +5,6 @@ import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
 import com.newrelic.instrumentation.labs.ktor.server.KtorExtendedResponse;
-import com.newrelic.instrumentation.labs.ktor.server.KtorServerUtils;
 import io.ktor.http.content.OutgoingContent;
 import io.ktor.server.application.ApplicationCall;
 import io.ktor.http.ContentType;
@@ -24,9 +23,6 @@ public class ApplicationResponseFunctionsJvmKt_Instrumentation {
 
     @Trace
     public static Object respondTextWriter(ApplicationCall call, ContentType contentType, HttpStatusCode status, Function2<? super Writer, ? super Continuation<? super Unit>, Object> function2, Continuation<? super Unit> continuation) {
-        if(!KtorServerUtils.initialized) {
-            KtorServerUtils.init();
-        }
         KtorExtendedResponse extendedResponse = new KtorExtendedResponse(call);
         NewRelic.getAgent().getTransaction().setWebResponse(extendedResponse);
         return Weaver.callOriginal();
@@ -34,9 +30,6 @@ public class ApplicationResponseFunctionsJvmKt_Instrumentation {
 
     @Trace
     public static Object respondOutputStream(ApplicationCall call, ContentType contentType, HttpStatusCode status, Function2<? super OutputStream, ? super Continuation<? super Unit>, Object> function2, Continuation<? super Unit> continuation) {
-        if(!KtorServerUtils.initialized) {
-            KtorServerUtils.init();
-        }
         KtorExtendedResponse extendedResponse = new KtorExtendedResponse(call);
         NewRelic.getAgent().getTransaction().setWebResponse(extendedResponse);
         return Weaver.callOriginal();
@@ -44,9 +37,6 @@ public class ApplicationResponseFunctionsJvmKt_Instrumentation {
 
     @Trace
     public static Object respondFile(ApplicationCall call, File baseDir, String fileName, Function1<? super OutgoingContent, Unit> function1, Continuation<? super Unit> continuation) {
-        if(!KtorServerUtils.initialized) {
-            KtorServerUtils.init();
-        }
         KtorExtendedResponse extendedResponse = new KtorExtendedResponse(call);
         NewRelic.getAgent().getTransaction().setWebResponse(extendedResponse);
         return Weaver.callOriginal();
@@ -54,9 +44,6 @@ public class ApplicationResponseFunctionsJvmKt_Instrumentation {
 
     @Trace
     public static Object respondFile(ApplicationCall call, File file, Function1<? super OutgoingContent, Unit> function1, Continuation<? super Unit> continuation) {
-        if(!KtorServerUtils.initialized) {
-            KtorServerUtils.init();
-        }
         KtorExtendedResponse extendedResponse = new KtorExtendedResponse(call);
         NewRelic.getAgent().getTransaction().setWebResponse(extendedResponse);
         return Weaver.callOriginal();
@@ -64,9 +51,6 @@ public class ApplicationResponseFunctionsJvmKt_Instrumentation {
 
     @Trace
     public static Object respondTextWriter(ApplicationCall call, ContentType contentType, HttpStatusCode status, Long contentLength, Function2<? super Writer, ? super Continuation<? super Unit>, Object> function2, Continuation<? super Unit> continuation) {
-        if(!KtorServerUtils.initialized) {
-            KtorServerUtils.init();
-        }
         KtorExtendedResponse extendedResponse = new KtorExtendedResponse(call);
         NewRelic.getAgent().getTransaction().setWebResponse(extendedResponse);
         return Weaver.callOriginal();
@@ -74,9 +58,6 @@ public class ApplicationResponseFunctionsJvmKt_Instrumentation {
 
     @Trace
     public static Object respondOutputStream(ApplicationCall call, ContentType contentType, HttpStatusCode status, Long contentLength, Function2<? super OutputStream, ? super Continuation<? super Unit>, Object> function2, Continuation<? super Unit> continuation) {
-        if(!KtorServerUtils.initialized) {
-            KtorServerUtils.init();
-        }
         KtorExtendedResponse extendedResponse = new KtorExtendedResponse(call);
         NewRelic.getAgent().getTransaction().setWebResponse(extendedResponse);
         return Weaver.callOriginal();

@@ -5,7 +5,6 @@ import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.TracedMethod;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
-import com.newrelic.instrumentation.labs.ktor.server.cio.KtorServerCIOUtils;
 import io.ktor.http.cio.Request;
 import io.ktor.server.cio.backend.ServerRequestScope;
 import kotlin.Unit;
@@ -16,9 +15,6 @@ public class CIOApplicationEngine_Instrumentation {
 
     @Trace
     private Object handleRequest(ServerRequestScope serverRequestScope, Request request, Continuation<? super Unit> continuation) {
-        if(!KtorServerCIOUtils.initialized) {
-            KtorServerCIOUtils.init();
-        }
         TracedMethod traced = NewRelic.getAgent().getTracedMethod();
         traced.addCustomAttribute("Request-URI", request.getUri().toString());
         traced.addCustomAttribute("Request-Method", request.getMethod().toString());

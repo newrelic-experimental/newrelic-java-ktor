@@ -1,7 +1,6 @@
 package io.ktor.server.jetty.jakarta;
 
 import com.newrelic.api.agent.NewRelic;
-import com.newrelic.api.agent.Token;
 import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.TracedMethod;
 import com.newrelic.api.agent.Transaction;
@@ -28,9 +27,6 @@ public abstract class JettyKtorHandler_Instrumentation {
 
     @Trace(dispatcher = true)
     public boolean handle(Request request, Response response, Callback callback) {
-        if(!Utils.initialized) {
-            Utils.init();
-        }
         TracedMethod traced = NewRelic.getAgent().getTracedMethod();
         Transaction transaction = NewRelic.getAgent().getTransaction();
         
