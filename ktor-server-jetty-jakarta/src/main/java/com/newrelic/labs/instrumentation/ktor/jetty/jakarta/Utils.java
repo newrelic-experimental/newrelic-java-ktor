@@ -1,7 +1,5 @@
 package com.newrelic.labs.instrumentation.ktor.jetty.jakarta;
 
-import com.newrelic.agent.kotlincoroutines.KotlinCoroutinesService;
-import com.newrelic.agent.service.ServiceFactory;
 import io.ktor.server.application.Application;
 
 public class Utils {

@@ -1,8 +1,5 @@
 package com.newrelic.instrumentation.labs.ktor.utils;
 
-import com.newrelic.agent.kotlincoroutines.KotlinCoroutinesService;
-import com.newrelic.agent.service.ServiceFactory;
-
 import java.util.HashSet;
 import java.util.Set;
 

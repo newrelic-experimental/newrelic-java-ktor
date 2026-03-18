@@ -1,7 +1,5 @@
 package com.newrelic.labs.instrumentation.ktor.netty;
 
-import com.newrelic.agent.kotlincoroutines.KotlinCoroutinesService;
-import com.newrelic.agent.service.ServiceFactory;
 import com.newrelic.instrumentation.labs.ktor.netty.CoroutineNameUtilsKt;
 import io.ktor.http.HttpMethod;
 import io.ktor.http.RequestConnectionPoint;
