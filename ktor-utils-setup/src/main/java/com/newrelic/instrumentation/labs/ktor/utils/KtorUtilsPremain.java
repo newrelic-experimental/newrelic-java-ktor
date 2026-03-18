@@ -45,6 +45,7 @@ public class KtorUtilsPremain {
                     kotlinCoroutinesService.addIgnoredRegexScope(pattern);
                     kotlinCoroutinesService.addIgnoredRegExContinuation(pattern);
                     initialized = true;
+                    NewRelic.getAgent().getLogger().log(Level.INFO, "KtorUtilsPremain has been initialized using pattern: {0}", pattern);
                 } else {
                     try {
                         Thread.sleep(500);

@@ -43,6 +43,7 @@ public class KtorClientPremain {
                     kotlinCoroutinesService.addIgnoredRegexSuspends(pattern);
                     kotlinCoroutinesService.addIgnoredRegexScope(pattern);
                     kotlinCoroutinesService.addIgnoredRegExContinuation(pattern);
+                    NewRelic.getAgent().getLogger().log(Level.INFO, "KtorClientPremain has been initialized using pattern: {0}", pattern);
                     initialized = true;
                 } else {
                     try {
