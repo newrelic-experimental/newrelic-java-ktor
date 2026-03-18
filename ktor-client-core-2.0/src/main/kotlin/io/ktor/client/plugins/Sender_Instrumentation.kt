@@ -5,10 +5,9 @@ import com.newrelic.api.agent.Trace
 import com.newrelic.api.agent.weaver.MatchType
 import com.newrelic.api.agent.weaver.Weave
 import com.newrelic.api.agent.weaver.Weaver
-import io.ktor.client.call.HttpClientCall
-import io.ktor.client.request.HttpRequestBuilder
 import com.newrelic.instrumentation.labs.ktor.client.KtorHeaderWrapper
-import io.ktor.http.HttpMethod
+import io.ktor.client.call.*
+import io.ktor.client.request.*
 
 @Weave(type = MatchType.Interface, originalName = "io.ktor.client.plugins.Sender")
 class Sender_Instrumentation {

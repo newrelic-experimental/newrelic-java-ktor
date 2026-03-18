@@ -5,7 +5,7 @@ import org.eclipse.jetty.server.Request;
 import com.newrelic.api.agent.TracedMethod;
 
 public class Utils {
-    
+
     public static String getApplicationName(Application app) {
         if (app != null) {
             return app.getClass().getSimpleName();

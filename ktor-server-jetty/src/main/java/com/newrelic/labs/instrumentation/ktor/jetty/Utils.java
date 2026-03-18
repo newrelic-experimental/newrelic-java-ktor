@@ -3,7 +3,7 @@ package com.newrelic.labs.instrumentation.ktor.jetty;
 import io.ktor.server.application.Application;
 
 public class Utils {
-    
+
     public static String getApplicationName(Application app) {
         if (app != null) {
             return app.getClass().getSimpleName();

@@ -1,5 +1,6 @@
 package io.ktor.client;
 
+import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
 import io.ktor.client.call.HttpClientCall;
@@ -13,6 +14,7 @@ import kotlin.coroutines.Continuation;
 @Weave(originalName = "io.ktor.client.HttpClient")
 public class HttpClient_Instrumentation {
 
+    @Trace(dispatcher = true)
     public Object execute$ktor_client_core(HttpRequestBuilder requestBuilder, Continuation<? super HttpClientCall> continuation) {
         return Weaver.callOriginal();
     }

@@ -4,8 +4,7 @@ import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
 import io.ktor.routing.Route;
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
+
 import java.io.File;
 
 @Weave(originalName = "io.ktor.http.content.StaticContentKt")

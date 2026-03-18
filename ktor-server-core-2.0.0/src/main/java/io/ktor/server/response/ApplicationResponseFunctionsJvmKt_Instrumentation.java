@@ -63,5 +63,4 @@ public class ApplicationResponseFunctionsJvmKt_Instrumentation {
         return Weaver.callOriginal();
     }
 
-    
 }
