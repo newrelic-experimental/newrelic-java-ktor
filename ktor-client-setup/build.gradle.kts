@@ -21,7 +21,8 @@ tasks.jar {
             "Implementation-Title" to "com.newrelic.instrumentation.labs.ktor-client-setup",
             "Implementation-Vendor" to "New Relic Labs",
             "Implementation-Vendor-Id" to "com.newrelic.labs",
-            "Implementation-Version" to 1.0
+            "Implementation-Version" to 1.0,
+            "Agent-Class" to "com.newrelic.instrumentation.labs.ktor.client.KtorClientPremain"
          )
     }
 }

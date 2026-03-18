@@ -1,4 +1,4 @@
-package com.newrelic.instrumenation.labs.ktor.client;
+package com.newrelic.instrumentation.labs.ktor.client;
 
 import com.newrelic.agent.kotlincoroutines.KotlinCoroutinesService;
 import com.newrelic.agent.service.ServiceFactory;
