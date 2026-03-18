@@ -5,16 +5,12 @@ import com.newrelic.api.agent.Trace
 import com.newrelic.api.agent.weaver.MatchType
 import com.newrelic.api.agent.weaver.Weave
 import com.newrelic.api.agent.weaver.Weaver
-import com.newrelic.instrumentation.labs.ktor.utils.PipelineUtils
 
 @Weave(type = MatchType.BaseClass, originalName = "io.ktor.util.pipeline.Pipeline")
 open class Pipeline_Instrumentation<TSubject : Any, TContext : Any> {
 
     @Trace
     suspend fun execute(context : TContext, subject : TSubject) : TSubject  {
-        if(!PipelineUtils.initialized) {
-            PipelineUtils.init()
-        }
         NewRelic.getAgent().tracedMethod.setMetricName("Custom","Ktor-Utils","Pipeline",this.javaClass.name,"execute")
         return Weaver.callOriginal()
     }

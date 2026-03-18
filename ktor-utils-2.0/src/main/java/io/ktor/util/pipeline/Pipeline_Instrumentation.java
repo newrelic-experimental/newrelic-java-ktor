@@ -17,9 +17,6 @@ public class Pipeline_Instrumentation<TSubject, TContext> {
     private Token token = null;
 
     public Pipeline_Instrumentation(PipelinePhase... phases) {
-        if(!PipelineUtils.initialized) {
-            PipelineUtils.init();
-        }
         String simpleName = getClass().getSimpleName();
         if(PipelineUtils.tracePipeline(simpleName)) {
             token = NewRelic.getAgent().getTransaction().getToken();
@@ -28,9 +25,6 @@ public class Pipeline_Instrumentation<TSubject, TContext> {
 
     @Trace(async = true)
     public Object execute(TContext context, TSubject subject, Continuation<? super TSubject>  continuation) {
-        if(!PipelineUtils.initialized) {
-            PipelineUtils.init();
-        }
         if(token != null) {
             token.linkAndExpire();
             token = null;
