@@ -1,0 +1,38 @@
+// Build.gradle generated for instrumentation module PROJECT_NAME
+
+apply(plugin = "java")
+
+dependencies {
+   // Declare a dependency on each JAR you want to instrument
+    // Example:
+    // implementation("javax.servlet:servlet-api:2.5")
+
+    // New Relic Java Agent dependencies
+    implementation("com.newrelic.agent.java:newrelic-agent:JAVA_AGENT_VERSION")
+    implementation("com.newrelic.agent.java:newrelic-api:JAVA_AGENT_VERSION")
+    implementation(fileTree("../libs"){
+        include("*.jar")
+    })
+    implementation(fileTree("../test-lib"){
+        include("*.jar")
+    })
+}
+
+tasks.jar {
+    manifest {
+        attributes(
+            "Implementation-Title" to "PROJECT_GROUP.PROJECT_NAME",
+            "Implementation-Vendor" to "New Relic Labs",
+            "Implementation-Vendor-Id" to "com.newrelic.labs",
+            "Implementation-Version" to 1.0
+         )
+    }
+}
+
+verifyInstrumentation {
+    // Verifier plugin documentation:
+    // https://github.com/newrelic/newrelic-gradle-verify-instrumentation
+    // Example:
+    // passes("javax.servlet:servlet-api:[2.2,2.5])"
+    // exclude("javax.servlet:servlet-api:2.4.public_draft)"
+}
