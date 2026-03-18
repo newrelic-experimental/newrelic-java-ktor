@@ -1,5 +1,4 @@
 import de.undercouch.gradle.tasks.download.Download
-import org.gradle.api.tasks.Input
 import java.io.*
 
 // Build.gradle for creating or installing new instrumentation modules
@@ -37,7 +36,7 @@ apply(plugin = "de.undercouch.download")
 
 val javaAgentVersion: String = extra["javaAgentVersion"] as String
 val developerGroup: String = extra["developerGroup"] as String
-val java_version = JavaVersion.VERSION_1_8
+val javaVersion = JavaVersion.VERSION_1_8
 
 tasks.create<Download>("getAgent") {
     val rootDirectory = projectDir.path
@@ -161,8 +160,8 @@ subprojects {
   apply(plugin = "com.newrelic.gradle-verify-instrumentation-plugin")
   apply(plugin = "org.jetbrains.kotlin.jvm")
 
-  val sourceCompatibility = java_version
-  val targetCompatibility = java_version
+  val sourceCompatibility = javaVersion
+  val targetCompatibility = javaVersion
 
   dependencies {
     testImplementation(
