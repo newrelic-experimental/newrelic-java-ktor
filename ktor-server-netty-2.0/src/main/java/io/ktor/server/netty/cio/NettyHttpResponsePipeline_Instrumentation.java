@@ -6,6 +6,7 @@ import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
 
+import com.newrelic.labs.instrumentation.ktor.netty.Utils;
 import io.ktor.server.netty.NettyApplicationCall_Instrumentation;
 
 @Weave(originalName = "io.ktor.server.netty.cio.NettyHttpResponsePipeline")
@@ -13,6 +14,9 @@ public abstract class NettyHttpResponsePipeline_Instrumentation {
 
     @Trace(async = true)
     private void handleRequestMessage(NettyApplicationCall_Instrumentation call) {
+        if(!Utils.initialized) {
+            Utils.init();
+        }
         if(call.token != null) {
             call.token.linkAndExpire();
             call.token = null;
@@ -22,6 +26,9 @@ public abstract class NettyHttpResponsePipeline_Instrumentation {
 
     @Trace
     public void processResponse$ktor_server_netty(NettyApplicationCall_Instrumentation call) {
+        if(!Utils.initialized) {
+            Utils.init();
+        }
         if(call.token == null) {
             Token t = NewRelic.getAgent().getTransaction().getToken();
             if(t != null && t.isActive()) {

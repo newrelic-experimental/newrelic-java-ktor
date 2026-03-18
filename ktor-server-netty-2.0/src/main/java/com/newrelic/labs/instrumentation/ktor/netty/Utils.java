@@ -1,5 +1,7 @@
 package com.newrelic.labs.instrumentation.ktor.netty;
 
+import com.newrelic.agent.kotlincoroutines.KotlinCoroutinesService;
+import com.newrelic.agent.service.ServiceFactory;
 import com.newrelic.instrumentation.labs.ktor.netty.CoroutineNameUtilsKt;
 import io.ktor.http.HttpMethod;
 import io.ktor.http.RequestConnectionPoint;
@@ -9,7 +11,20 @@ import org.jetbrains.annotations.Nullable;
 
 public class Utils {
 
-	
+	public static boolean initialized = false;
+
+	public static void init() {
+		if(initialized) {
+			return;
+		}
+		KotlinCoroutinesService coroutinesService = ServiceFactory.getKotlinCoroutinesService();
+		String pattern = "io\\.ktor\\.server\\.netty\\..*";
+		coroutinesService.addIgnoredRegExContinuation(pattern);
+		coroutinesService.addIgnoredRegexSuspends(pattern);
+		coroutinesService.addIgnoredRegexDispatched(pattern);
+		initialized = true;
+	}
+
 	public static String getCoroutineName(CoroutineContext context) {
 		@Nullable String name = CoroutineNameUtilsKt.getCoroutineName(context);
 		if(name != null && !name.isEmpty()) return name;

@@ -7,6 +7,7 @@ import com.newrelic.api.agent.weaver.NewField;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
 
+import com.newrelic.labs.instrumentation.ktor.netty.Utils;
 import io.netty.util.concurrent.Future;
 import kotlin.jvm.functions.Function2;
 import kotlinx.coroutines.CancellableContinuation;
@@ -23,6 +24,9 @@ abstract class CoroutineListener_Instrumentation<T, F extends Future<T>> {
 	
 	@Trace
 	public void invoke(Throwable t) {
+		if(!Utils.initialized) {
+			Utils.init();
+		}
 		if(segment == null) {
 			segment = NewRelic.getAgent().getTransaction().startSegment("CoroutineListener");
 		}
@@ -30,6 +34,9 @@ abstract class CoroutineListener_Instrumentation<T, F extends Future<T>> {
 	}
 	
 	public void operationComplete(F f) {
+		if(!Utils.initialized) {
+			Utils.init();
+		}
 		if(segment != null) {
 			segment.end();
 			segment = null;

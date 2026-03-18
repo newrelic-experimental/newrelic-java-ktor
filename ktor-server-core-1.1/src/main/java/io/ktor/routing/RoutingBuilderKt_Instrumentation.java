@@ -4,6 +4,7 @@ import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
+import com.newrelic.instrumentation.labs.ktor.server.KtorServerUtils;
 import com.newrelic.instrumentation.labs.ktor.server.NRFunction3Wrapper;
 import kotlin.Unit;
 import kotlin.coroutines.Continuation;
@@ -19,12 +20,18 @@ public class RoutingBuilderKt_Instrumentation {
 
     @Trace
     public static Route route(Route route, String path, Function1<? super Route, Unit> function1) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         NewRelic.getAgent().getTracedMethod().addCustomAttribute("Path", path);
         return Weaver.callOriginal();
     }
 
     @Trace
     public static Route route(Route route, String path, HttpMethod method, Function1<? super Route, Unit> function1) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         NewRelic.getAgent().getTracedMethod().addCustomAttribute("Path", path);
         NewRelic.getAgent().getTracedMethod().addCustomAttribute("Method", method.toString());
         return Weaver.callOriginal();
@@ -32,42 +39,66 @@ public class RoutingBuilderKt_Instrumentation {
 
     @Trace
     public static Route method(Route route, HttpMethod method, Function1<? super Route, Unit> function1) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         NewRelic.getAgent().getTracedMethod().addCustomAttribute("Method", method.toString());
         return Weaver.callOriginal();
     }
 
     @Trace
     public static Route param(Route route, String name, String value, Function1<? super Route, Unit> function1) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         return Weaver.callOriginal();
     }
 
     @Trace
     public static Route param(Route route, String name, Function1<? super Route, Unit> function1) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         return Weaver.callOriginal();
     }
 
     @Trace
     public static Route optionalParam(Route route, String name, Function1<? super Route, Unit> function1) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         return Weaver.callOriginal();
     }
 
     @Trace
     public static Route header(Route route, String name, String value, Function1<? super Route, Unit> function1) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         return Weaver.callOriginal();
     }
 
     @Trace
     public static Route accept(Route route,ContentType contentType, Function1<? super Route, Unit> function1) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         return Weaver.callOriginal();
     }
 
     @Trace
     public static Route contentType(Route route,ContentType contentType, Function1<? super Route, Unit> function1) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         return Weaver.callOriginal();
     }
 
     @Trace
     public static Route get(Route route, String path, Function3<? super PipelineContext<Unit, ApplicationCall>, ? super Unit, ? super Continuation<? super Unit>, Object> function3) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         NewRelic.getAgent().getTracedMethod().addCustomAttribute("Path", path);
         if (function3 != null && !(function3 instanceof NRFunction3Wrapper))  {
             function3 = new NRFunction3Wrapper<>(function3,route);
@@ -77,6 +108,9 @@ public class RoutingBuilderKt_Instrumentation {
 
     @Trace
     public static Route get(Route route, Function3<? super PipelineContext<Unit, ApplicationCall>, ? super Unit, ? super Continuation<? super Unit>, Object> function3) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         if (function3 != null && !(function3 instanceof NRFunction3Wrapper))  {
             function3 = new NRFunction3Wrapper<>(function3,route);
         }
@@ -85,6 +119,9 @@ public class RoutingBuilderKt_Instrumentation {
 
     @Trace
     public static Route post(Route route, String path, Function3<? super PipelineContext<Unit, ApplicationCall>, ? super Unit, ? super Continuation<? super Unit>, Object> function3) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         if (function3 != null && !(function3 instanceof NRFunction3Wrapper))  {
             function3 = new NRFunction3Wrapper<>(function3,route);
         }
@@ -94,6 +131,9 @@ public class RoutingBuilderKt_Instrumentation {
 
     @Trace
     public static Route post(Route route, Function3<? super PipelineContext<Unit, ApplicationCall>, ? super Unit, ? super Continuation<? super Unit>, Object> function3) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         if (function3 != null && !(function3 instanceof NRFunction3Wrapper))  {
             function3 = new NRFunction3Wrapper<>(function3,route);
         }
@@ -102,6 +142,9 @@ public class RoutingBuilderKt_Instrumentation {
 
     @Trace
     public static Route head(Route route, String path, Function3<? super PipelineContext<Unit, ApplicationCall>, ? super Unit, ? super Continuation<? super Unit>, Object> function3) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         if (function3 != null && !(function3 instanceof NRFunction3Wrapper))  {
             function3 = new NRFunction3Wrapper<>(function3,route);
         }
@@ -111,6 +154,9 @@ public class RoutingBuilderKt_Instrumentation {
 
     @Trace
     public static Route head(Route route, Function3<? super PipelineContext<Unit, ApplicationCall>, ? super Unit, ? super Continuation<? super Unit>, Object> function3) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         if (function3 != null && !(function3 instanceof NRFunction3Wrapper))  {
             function3 = new NRFunction3Wrapper<>(function3,route);
         }
@@ -119,6 +165,9 @@ public class RoutingBuilderKt_Instrumentation {
 
     @Trace
     public static Route put(Route route, String path, Function3<? super PipelineContext<Unit, ApplicationCall>, ? super Unit, ? super Continuation<? super Unit>, Object> function3) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         if (function3 != null && !(function3 instanceof NRFunction3Wrapper))  {
             function3 = new NRFunction3Wrapper<>(function3,route);
         }
@@ -128,6 +177,9 @@ public class RoutingBuilderKt_Instrumentation {
 
     @Trace
     public static Route put(Route route, Function3<? super PipelineContext<Unit, ApplicationCall>, ? super Unit, ? super Continuation<? super Unit>, Object> function3) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         if (function3 != null && !(function3 instanceof NRFunction3Wrapper))  {
             function3 = new NRFunction3Wrapper<>(function3,route);
         }
@@ -136,6 +188,9 @@ public class RoutingBuilderKt_Instrumentation {
 
     @Trace
     public static Route patch(Route route, String path, Function3<? super PipelineContext<Unit, ApplicationCall>, ? super Unit, ? super Continuation<? super Unit>, Object> function3) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         NewRelic.getAgent().getTracedMethod().addCustomAttribute("Path", path);
         if (function3 != null && !(function3 instanceof NRFunction3Wrapper))  {
             function3 = new NRFunction3Wrapper<>(function3,route);
@@ -145,6 +200,9 @@ public class RoutingBuilderKt_Instrumentation {
 
     @Trace
     public static Route patch(Route route, Function3<? super PipelineContext<Unit, ApplicationCall>, ? super Unit, ? super Continuation<? super Unit>, Object> function3) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         if (function3 != null && !(function3 instanceof NRFunction3Wrapper))  {
             function3 = new NRFunction3Wrapper<>(function3,route);
         }
@@ -153,6 +211,9 @@ public class RoutingBuilderKt_Instrumentation {
 
     @Trace
     public static Route delete(Route route, String path, Function3<? super PipelineContext<Unit, ApplicationCall>, ? super Unit, ? super Continuation<? super Unit>, Object> function3) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         if (function3 != null && !(function3 instanceof NRFunction3Wrapper))  {
             function3 = new NRFunction3Wrapper<>(function3,route);
         }
@@ -162,6 +223,9 @@ public class RoutingBuilderKt_Instrumentation {
 
     @Trace
     public static Route delete(Route route, Function3<? super PipelineContext<Unit, ApplicationCall>, ? super Unit, ? super Continuation<? super Unit>, Object> function3) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         if (function3 != null && !(function3 instanceof NRFunction3Wrapper))  {
             function3 = new NRFunction3Wrapper<>(function3,route);
         }
@@ -170,6 +234,9 @@ public class RoutingBuilderKt_Instrumentation {
 
     @Trace
     public static Route options(Route route, String path, Function3<? super PipelineContext<Unit, ApplicationCall>, ? super Unit, ? super Continuation<? super Unit>, Object> function3) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         if (function3 != null && !(function3 instanceof NRFunction3Wrapper))  {
             function3 = new NRFunction3Wrapper<>(function3,route);
         }
@@ -179,6 +246,9 @@ public class RoutingBuilderKt_Instrumentation {
 
     @Trace
     public static Route options(Route route, Function3<? super PipelineContext<Unit, ApplicationCall>, ? super Unit, ? super Continuation<? super Unit>, Object> function3) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         if (function3 != null && !(function3 instanceof NRFunction3Wrapper))  {
             function3 = new NRFunction3Wrapper<>(function3,route);
         }

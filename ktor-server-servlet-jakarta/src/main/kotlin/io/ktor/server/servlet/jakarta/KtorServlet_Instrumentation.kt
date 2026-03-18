@@ -10,6 +10,7 @@ import com.newrelic.api.agent.weaver.NewField
 import com.newrelic.api.agent.weaver.Weave
 import com.newrelic.api.agent.weaver.Weaver
 import com.newrelic.labs.instrumentation.ktor.servlet.jakarta.ServletRequestHeaders
+import com.newrelic.labs.instrumentation.ktor.servlet.jakarta.ServletUtils
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import java.util.logging.Level
@@ -22,6 +23,9 @@ public abstract class KtorServlet_Instrumentation {
 
     @Trace(dispatcher = true)
     private fun asyncService(request: HttpServletRequest, response: HttpServletResponse) {
+        if(!ServletUtils.initialized) {
+            ServletUtils.init()
+        }
         val transaction = NewRelic.getAgent().getTransaction()
         val traced = NewRelic.getAgent().getTracedMethod()
 

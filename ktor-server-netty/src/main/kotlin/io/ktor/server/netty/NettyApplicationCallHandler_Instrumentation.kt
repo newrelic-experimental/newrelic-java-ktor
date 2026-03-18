@@ -21,6 +21,9 @@ class NettyApplicationCallHandler_Instrumentation {
 
     @Trace
     private fun handleRequest(context: ChannelHandlerContext, call: ApplicationCall) {
+        if(!Utils.initialized) {
+            Utils.init()
+        }
         val transaction : Transaction = NewRelic.getAgent().transaction;
         if(!transaction.isWebTransaction()) {
             transaction.convertToWebTransaction()

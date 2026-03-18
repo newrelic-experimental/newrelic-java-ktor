@@ -26,6 +26,9 @@ public abstract class JettyKtorHandler_Instrumentation {
 
     @Trace(dispatcher = true)
     public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) {
+        if(!Utils.initialized) {
+            Utils.init();
+        }
         TracedMethod traced = NewRelic.getAgent().getTracedMethod();
         Transaction transaction = NewRelic.getAgent().getTransaction();
         

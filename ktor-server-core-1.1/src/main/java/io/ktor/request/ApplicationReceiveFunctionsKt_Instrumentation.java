@@ -5,6 +5,7 @@ import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
 import com.newrelic.instrumentation.labs.ktor.server.KtorExtendedRequest;
+import com.newrelic.instrumentation.labs.ktor.server.KtorServerUtils;
 import io.ktor.application.ApplicationCall;
 import io.ktor.http.Parameters;
 import io.ktor.http.content.MultiPartData;
@@ -19,6 +20,9 @@ public class ApplicationReceiveFunctionsKt_Instrumentation {
 
     @Trace(dispatcher = true)
     public static <T> Object receive(ApplicationCall call, KClass<T> tkClass, Continuation<? super T> continuation) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         KtorExtendedRequest extendedRequest = new KtorExtendedRequest(call);
         NewRelic.getAgent().getTransaction().setWebRequest(extendedRequest);
         return Weaver.callOriginal();
@@ -26,6 +30,9 @@ public class ApplicationReceiveFunctionsKt_Instrumentation {
 
     @Trace(dispatcher = true)
     public static <T> Object receiveOrNull(ApplicationCall call, KClass<T> tkClass, Continuation<? super T> continuation) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         KtorExtendedRequest extendedRequest = new KtorExtendedRequest(call);
         NewRelic.getAgent().getTransaction().setWebRequest(extendedRequest);
         return Weaver.callOriginal();
@@ -33,6 +40,9 @@ public class ApplicationReceiveFunctionsKt_Instrumentation {
 
     @Trace(dispatcher = true)
     public static Object receiveText(ApplicationCall call, Continuation<? super String> continuation) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         KtorExtendedRequest extendedRequest = new KtorExtendedRequest(call);
         NewRelic.getAgent().getTransaction().setWebRequest(extendedRequest);
         return Weaver.callOriginal();
@@ -40,6 +50,9 @@ public class ApplicationReceiveFunctionsKt_Instrumentation {
 
     @Trace(dispatcher = true)
     public static Object receiveChannel(ApplicationCall call, Continuation<? super ByteReadChannel> continuation) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         KtorExtendedRequest extendedRequest = new KtorExtendedRequest(call);
         NewRelic.getAgent().getTransaction().setWebRequest(extendedRequest);
         return Weaver.callOriginal();
@@ -47,6 +60,9 @@ public class ApplicationReceiveFunctionsKt_Instrumentation {
 
     @Trace(dispatcher = true)
     public static Object receiveStream(ApplicationCall call, Continuation<? super InputStream> continuation) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         KtorExtendedRequest extendedRequest = new KtorExtendedRequest(call);
         NewRelic.getAgent().getTransaction().setWebRequest(extendedRequest);
         return Weaver.callOriginal();
@@ -54,6 +70,9 @@ public class ApplicationReceiveFunctionsKt_Instrumentation {
 
     @Trace(dispatcher = true)
     public static Object receiveMultipart(ApplicationCall call, Continuation<? super MultiPartData> continuation) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         KtorExtendedRequest extendedRequest = new KtorExtendedRequest(call);
         NewRelic.getAgent().getTransaction().setWebRequest(extendedRequest);
         return Weaver.callOriginal();
@@ -61,6 +80,9 @@ public class ApplicationReceiveFunctionsKt_Instrumentation {
 
     @Trace(dispatcher = true)
     public static Object receiveParameters(ApplicationCall call, Continuation<? super Parameters> continuation) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         KtorExtendedRequest extendedRequest = new KtorExtendedRequest(call);
         NewRelic.getAgent().getTransaction().setWebRequest(extendedRequest);
         return Weaver.callOriginal();

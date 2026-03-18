@@ -5,6 +5,7 @@ import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.TransactionNamePriority;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
+import com.newrelic.instrumentation.labs.ktor.server.KtorServerUtils;
 import io.ktor.http.Parameters;
 import io.ktor.server.application.PipelineCall;
 import io.ktor.util.pipeline.PipelineContext;
@@ -18,6 +19,9 @@ public class RoutingRoot_Instrumentation {
 
     @Trace
     private java.lang.Object executeResult(PipelineContext<Unit, PipelineCall> context, RoutingNode routingNode, Parameters parameters, Continuation<? super Unit> continuation) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         if(routingNode != null) {
             String routingString = routingNode.toString();
             NewRelic.getAgent().getTransaction().setTransactionName(TransactionNamePriority.CUSTOM_LOW, true, "KtorRouting", routingString);

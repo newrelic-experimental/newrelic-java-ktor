@@ -8,9 +8,8 @@ import com.newrelic.api.agent.weaver.Weave
 import com.newrelic.api.agent.weaver.Weaver
 import com.newrelic.instrumentation.labs.ktor.netty.KtorNettyHeaders
 import com.newrelic.labs.instrumentation.ktor.netty.Utils
-import io.ktor.server.application.ApplicationCall
-import io.ktor.server.application.PipelineCall
-import io.ktor.server.routing.RoutingPipelineCall
+import io.ktor.server.application.*
+import io.ktor.server.routing.*
 import io.netty.channel.ChannelHandlerContext
 import java.util.logging.Level
 
@@ -20,6 +19,9 @@ class NettyApplicationCallHandler_Instrumentation {
 
     @Trace
     private fun handleRequest(context: ChannelHandlerContext, call: PipelineCall) {
+        if (!Utils.initialized) {
+            Utils.init()
+        }
         NewRelic.getAgent().logger.log(Level.FINE, "Call to NettyApplicationCallHandler.handleRequest({0},{1})", context, call)
         val appName = Utils.getApplicationName(call.application)
         if(!appName.isNullOrBlank()) {

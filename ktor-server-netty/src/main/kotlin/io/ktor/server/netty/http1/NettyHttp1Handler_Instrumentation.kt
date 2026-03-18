@@ -3,6 +3,7 @@ package io.ktor.server.netty.http1
 import com.newrelic.api.agent.Trace
 import com.newrelic.api.agent.weaver.Weave
 import com.newrelic.api.agent.weaver.Weaver
+import com.newrelic.labs.instrumentation.ktor.netty.Utils
 import io.netty.channel.ChannelHandlerContext
 import io.netty.handler.codec.http.HttpRequest
 
@@ -11,6 +12,9 @@ internal class NettyHttp1Handler_Instrumentation {
 
     @Trace
     private fun handleRequest(context: ChannelHandlerContext, message: HttpRequest) {
+        if(!Utils.initialized) {
+            Utils.init()
+        }
         Weaver.callOriginal<Any>()
     }
 }

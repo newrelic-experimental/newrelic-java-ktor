@@ -6,6 +6,7 @@ import com.newrelic.api.agent.Trace
 import com.newrelic.api.agent.weaver.MatchType
 import com.newrelic.api.agent.weaver.Weave
 import com.newrelic.api.agent.weaver.Weaver
+import com.newrelic.instrumentation.labs.ktor.client_1X.InstrumentationUtils
 import io.ktor.client.call.HttpClientCall
 import io.ktor.client.request.HttpRequestData
 import io.ktor.client.request.HttpResponseData
@@ -16,6 +17,9 @@ public class HttpClientEngine_Instrumentation {
 
     @Trace(dispatcher = true)
     public suspend fun execute(data: HttpRequestData): HttpResponseData {
+        if(!InstrumentationUtils.initialized) {
+            InstrumentationUtils.init()
+        }
         NewRelic.getAgent().tracedMethod.setMetricName("Custom","Ktor-Client","HttpClientEngine",this.javaClass.name,"execute")
         val url = data.url
         val uri : URI = URI.create(url.toString())

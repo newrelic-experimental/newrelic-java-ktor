@@ -5,9 +5,9 @@ apply(plugin = "java")
 dependencies {
     implementation("io.ktor:ktor-client-cio-jvm:1.4.0")
     // New Relic Java Agent dependencies
-    implementation("com.newrelic.agent.java:newrelic-agent:9.0.0")
-    implementation("com.newrelic.agent.java:newrelic-api:9.0.0")
-    implementation("com.newrelic.agent.java:agent-bridge:9.0.0")
+    implementation("com.newrelic.agent.java:newrelic-agent:9.1.0")
+    implementation("com.newrelic.agent.java:newrelic-api:9.1.0")
+    implementation("com.newrelic.agent.java:agent-bridge:9.1.0")
     implementation(fileTree("../test-lib"){
         include("*.jar")
     })
@@ -25,5 +25,5 @@ tasks.jar {
 }
 
 verifyInstrumentation {
-    passes("io.ktor:ktor-client-cio-jvm:[1.4.0,)")
+    passesOnly("io.ktor:ktor-client-cio-jvm:[1.4.0,2.0.2)")
 }

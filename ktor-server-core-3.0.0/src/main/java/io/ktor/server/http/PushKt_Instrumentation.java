@@ -3,6 +3,7 @@ package io.ktor.server.http;
 import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
+import com.newrelic.instrumentation.labs.ktor.server.KtorServerUtils;
 import io.ktor.http.Parameters;
 import io.ktor.server.application.ApplicationCall;
 import io.ktor.server.response.ResponsePushBuilder;
@@ -14,14 +15,23 @@ public class PushKt_Instrumentation {
 
     @Trace
     public static void push(ApplicationCall call, String pathAndQuery) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         Weaver.callOriginal();
     }
 
     public static void push(ApplicationCall call, String pathAndQuery, Parameters params) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         Weaver.callOriginal();
     }
 
     public static void push(ApplicationCall call, Function1<? super ResponsePushBuilder, Unit> function1) {
+        if(!KtorServerUtils.initialized) {
+            KtorServerUtils.init();
+        }
         Weaver.callOriginal();
     }
 }
