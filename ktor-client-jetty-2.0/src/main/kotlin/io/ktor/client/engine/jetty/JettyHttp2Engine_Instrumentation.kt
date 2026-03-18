@@ -6,7 +6,6 @@ import com.newrelic.api.agent.Trace
 import com.newrelic.api.agent.weaver.MatchType
 import com.newrelic.api.agent.weaver.Weave
 import com.newrelic.api.agent.weaver.Weaver
-import com.newrelic.instrumentation.labs.ktor.client.jetty.KtorClientJettyUtils
 import io.ktor.client.request.HttpRequestData
 import io.ktor.client.request.HttpResponseData
 import java.net.URI
@@ -31,9 +30,6 @@ internal class JettyHttp2Engine_Instrumentation {
      */
     @Trace(leaf = true)
     public suspend fun execute(data: HttpRequestData): HttpResponseData {
-        if(!KtorClientJettyUtils.initialized) {
-            KtorClientJettyUtils.init()
-        }
         // Defensive null check and instrumentation (required for Kotlin suspend function Weave instrumentation)
         if (data != null) {
             try {

@@ -5,7 +5,6 @@ import com.newrelic.api.agent.Trace
 import com.newrelic.api.agent.weaver.MatchType
 import com.newrelic.api.agent.weaver.Weave
 import com.newrelic.api.agent.weaver.Weaver
-import com.newrelic.instrumentation.labs.ktor.client.InstrumentationUtils
 import com.newrelic.instrumentation.labs.ktor.client.KtorHeaderWrapper
 import io.ktor.client.call.*
 import io.ktor.client.request.*
@@ -15,9 +14,6 @@ class Sender_Instrumentation {
 
     @Trace
     public suspend fun execute(requestBuilder: HttpRequestBuilder): HttpClientCall {
-        if (!InstrumentationUtils.initialized) {
-            InstrumentationUtils.init()
-        }
         NewRelic.getAgent().tracedMethod.setMetricName("Custom","Ktor-Client","Sender",this.javaClass.name,"execute")
 
         // in spite of what IntelliJ says this can be null

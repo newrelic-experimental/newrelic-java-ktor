@@ -5,7 +5,6 @@ import com.newrelic.api.agent.Trace
 import com.newrelic.api.agent.weaver.MatchType
 import com.newrelic.api.agent.weaver.Weave
 import com.newrelic.api.agent.weaver.Weaver
-import com.newrelic.instrumentation.labs.ktor.client.InstrumentationUtils
 import io.ktor.client.request.*
 
 /**
@@ -30,9 +29,6 @@ class HttpClientEngine_Instrumentation {
      */
     @Trace
     public suspend fun execute(data: HttpRequestData): HttpResponseData {
-        if (!InstrumentationUtils.initialized) {
-            InstrumentationUtils.init()
-        }
         // Get the actual engine implementation class name
         val engineName = this.javaClass.simpleName
 
@@ -58,9 +54,6 @@ class HttpClientEngine_Instrumentation {
  */
 @Trace
 private suspend fun executeWithinCallContext(requestData: HttpRequestData): HttpResponseData {
-    if (!InstrumentationUtils.initialized) {
-        InstrumentationUtils.init()
-    }
     NewRelic.getAgent().tracedMethod.setMetricName(
         "Custom", "Ktor-Client", "HttpClientEngine", "executeWithinCallContext"
     )

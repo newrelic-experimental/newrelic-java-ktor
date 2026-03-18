@@ -4,7 +4,6 @@ import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
-import com.newrelic.instrumentation.labs.ktor.client_1X.InstrumentationUtils;
 import io.ktor.client.HttpClient;
 import io.ktor.client.request.HttpRequestBuilder;
 import io.ktor.http.Url;
@@ -17,9 +16,6 @@ public class UtilsKt_Instrumentation {
 
     @Trace
     public static Object call(HttpClient client, HttpRequestBuilder builder, Continuation<? super HttpClientCall> continuation) {
-        if(!InstrumentationUtils.initialized) {
-            InstrumentationUtils.init();
-        }
         String url = builder.getUrl().buildString();
         NewRelic.getAgent().getTracedMethod().addCustomAttribute("URL", url);
         return Weaver.callOriginal();
@@ -27,18 +23,12 @@ public class UtilsKt_Instrumentation {
 
     @Trace
     public static Object call(HttpClient client, String urlString, Function2<? super HttpRequestBuilder, ? super Continuation<? super Unit>, Object> function2, Continuation<? super HttpClientCall> continuation) {
-        if(!InstrumentationUtils.initialized) {
-            InstrumentationUtils.init();
-        }
         NewRelic.getAgent().getTracedMethod().addCustomAttribute("URL", urlString);
         return Weaver.callOriginal();
     }
 
     @Trace
     public static Object call(HttpClient client, Url url, Function2<? super HttpRequestBuilder, ? super Continuation<? super Unit>, Object> function2, Continuation<? super HttpClientCall> continuation) {
-        if(!InstrumentationUtils.initialized) {
-            InstrumentationUtils.init();
-        }
         NewRelic.getAgent().getTracedMethod().addCustomAttribute("URL", url.toString());
         return Weaver.callOriginal();
     };

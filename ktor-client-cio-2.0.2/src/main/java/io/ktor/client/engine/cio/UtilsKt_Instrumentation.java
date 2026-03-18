@@ -5,7 +5,6 @@ import com.newrelic.api.agent.Token;
 import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
-import com.newrelic.instrumentation.labs.ktor.cio.KtorClientCIOUtils;
 import com.newrelic.instrumentation.labs.ktor.cio.NRTokenContextKt;
 import com.newrelic.instrumentation.labs.ktor.cio.TokenContext;
 import io.ktor.client.request.HttpRequestData;
@@ -22,9 +21,6 @@ public class UtilsKt_Instrumentation {
 
     @Trace(dispatcher = true)
     public static Object writeRequest(HttpRequestData requestData, ByteWriteChannel writeChannel, CoroutineContext coroutineContext, boolean overProxy, boolean closeChannel, Continuation<? super Unit> continuation) {
-        if(!KtorClientCIOUtils.initialized) {
-            KtorClientCIOUtils.init();
-        }
         TokenContext tokenContext = NRTokenContextKt.getTokenContextOrNull(coroutineContext);
         if(tokenContext == null) {
             Token token = NewRelic.getAgent().getTransaction().getToken();
@@ -42,9 +38,6 @@ public class UtilsKt_Instrumentation {
 
     @Trace(dispatcher = true)
     public static Object readResponse(GMTDate date, HttpRequestData requestData, ByteReadChannel readChannel, ByteWriteChannel writeChannel, CoroutineContext coroutineContext, Continuation<? super HttpResponseData> continuation) {
-        if(!KtorClientCIOUtils.initialized) {
-            KtorClientCIOUtils.init();
-        }
         TokenContext tokenContext = NRTokenContextKt.getTokenContextOrNull(coroutineContext);
         if(tokenContext != null) {
             Token token = tokenContext.getToken();
