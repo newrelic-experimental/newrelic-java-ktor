@@ -8,7 +8,7 @@ import com.newrelic.api.agent.weaver.Weave
 import com.newrelic.api.agent.weaver.Weaver
 import com.newrelic.instrumentation.labs.ktor.netty.KtorNettyHeaders
 import com.newrelic.labs.instrumentation.ktor.netty.Utils
-import io.ktor.server.application.ApplicationCall
+import io.ktor.server.application.*
 import io.netty.channel.ChannelHandlerContext
 
 @Weave(originalName = "io.ktor.server.netty.NettyApplicationCallHandler")

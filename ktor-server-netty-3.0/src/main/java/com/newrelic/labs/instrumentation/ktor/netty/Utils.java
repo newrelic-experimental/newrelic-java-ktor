@@ -9,7 +9,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class Utils {
 
-	
 	public static String getCoroutineName(CoroutineContext context) {
 		@Nullable String name = CoroutineNameUtilsKt.getCoroutineName(context);
 		if(name != null && !name.isEmpty()) return name;

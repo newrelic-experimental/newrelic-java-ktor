@@ -6,10 +6,10 @@ dependencies {
    implementation("io.ktor:ktor-server-servlet-jakarta-jvm:3.0.0")
    compileOnly("jakarta.servlet:jakarta.servlet-api:5.0.0")
 
-   implementation("com.newrelic.agent.java:newrelic-api:8.4.0")
-   implementation("com.newrelic.agent.java:newrelic-agent:8.4.0")
-   implementation("com.newrelic.agent.java:newrelic-weaver-api:8.4.0")
-   implementation("com.newrelic.agent.java:agent-bridge:8.4.0")
+   implementation("com.newrelic.agent.java:newrelic-api:9.1.0")
+   implementation("com.newrelic.agent.java:newrelic-agent:9.1.0")
+   implementation("com.newrelic.agent.java:newrelic-weaver-api:9.1.0")
+   implementation("com.newrelic.agent.java:agent-bridge:9.1.0")
     implementation(fileTree("../test-lib"){
         include("*.jar")
     })

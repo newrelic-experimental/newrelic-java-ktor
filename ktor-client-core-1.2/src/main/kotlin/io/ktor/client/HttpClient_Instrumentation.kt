@@ -5,8 +5,8 @@ import com.newrelic.api.agent.Trace
 import com.newrelic.api.agent.weaver.Weave
 import com.newrelic.api.agent.weaver.Weaver
 import com.newrelic.instrumentation.labs.ktor.client_1X.KtorHeaders
-import io.ktor.client.call.HttpClientCall
-import io.ktor.client.request.HttpRequestBuilder
+import io.ktor.client.call.*
+import io.ktor.client.request.*
 
 @Weave(originalName = "io.ktor.client.HttpClient")
 public class HttpClient_Instrumentation {

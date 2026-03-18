@@ -11,7 +11,6 @@ import io.ktor.server.application.ApplicationCall;
 import kotlin.coroutines.Continuation;
 import kotlin.reflect.KClass;
 import io.ktor.utils.io.ByteReadChannel;
-import java.io.InputStream;
 
 @Weave(originalName = "io.ktor.server.request.ApplicationReceiveFunctionsKt")
 public class ApplicationReceiveFunctionsKt_Instrumentation {

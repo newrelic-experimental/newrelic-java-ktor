@@ -6,10 +6,10 @@ dependencies {
     implementation("io.ktor:ktor-client-jetty-jakarta-jvm:3.0.0")
 
     // New Relic Java Agent dependencies
-    implementation("com.newrelic.agent.java:newrelic-api:8.4.0")
-    implementation("com.newrelic.agent.java:newrelic-agent:8.4.0")
-    implementation("com.newrelic.agent.java:newrelic-weaver-api:8.4.0")
-    implementation("com.newrelic.agent.java:agent-bridge:8.4.0")
+    implementation("com.newrelic.agent.java:newrelic-api:9.1.0")
+    implementation("com.newrelic.agent.java:newrelic-agent:9.1.0")
+    implementation("com.newrelic.agent.java:newrelic-weaver-api:9.1.0")
+    implementation("com.newrelic.agent.java:agent-bridge:9.1.0")
         implementation(fileTree("../test-lib"){
         include("*.jar")
     })

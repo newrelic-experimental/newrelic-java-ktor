@@ -5,39 +5,48 @@ import io.ktor.application.Application;
 import io.ktor.http.HttpMethod;
 import io.ktor.http.RequestConnectionPoint;
 import kotlin.coroutines.CoroutineContext;
-import kotlinx.coroutines.*;
+import org.jetbrains.annotations.Nullable;
 
 public class Utils {
 
-	
 	public static String getCoroutineName(CoroutineContext context) {
-		return CoroutineNameUtilsKt.getCoroutineName(context);
+		@Nullable String name = CoroutineNameUtilsKt.getCoroutineName(context);
+		if(name != null && !name.isEmpty()) return name;
+
+		return null;
 	}
 	
 	public static String getApplicationName(Application app) {
 		if(app != null) {
 			CoroutineContext ctx = app.getCoroutineContext();
-            return getCoroutineName(ctx);
-        }
+			if(ctx != null) {
+				return getCoroutineName(ctx);
+			}
+		}
 		return null;
 	}
 	
 	public static String getTransactionName(RequestConnectionPoint point) {
 		StringBuffer sb = new StringBuffer();
 		String uri = point.getUri();
-        if (uri.isEmpty()) {
-            sb.append("Root");
-        } else {
-            sb.append(uri);
-        }
-        HttpMethod method = point.getMethod();
-        String value = method.getValue();
-        if(value != null && !value.isEmpty()) {
-            sb.append(" - {");
-            sb.append(value);
-            sb.append("}");
-        }
-        return sb.toString();
+		if(uri != null) {
+			if(uri.startsWith("/")) uri = uri.substring(1);
+			if(uri.isEmpty()) {
+				sb.append("Root");
+			} else {
+				sb.append(uri);
+			}
+		}
+		HttpMethod method = point.getMethod();
+		if(method != null) {
+			String value = method.getValue();
+			if(value != null && !value.isEmpty()) {
+				sb.append(" - {");
+				sb.append(value);
+				sb.append("}");
+			}
+		}
+		return sb.toString();
 	}
 
 }

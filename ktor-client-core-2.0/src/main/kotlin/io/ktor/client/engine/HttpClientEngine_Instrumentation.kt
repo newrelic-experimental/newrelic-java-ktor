@@ -5,8 +5,7 @@ import com.newrelic.api.agent.Trace
 import com.newrelic.api.agent.weaver.MatchType
 import com.newrelic.api.agent.weaver.Weave
 import com.newrelic.api.agent.weaver.Weaver
-import io.ktor.client.request.HttpRequestData
-import io.ktor.client.request.HttpResponseData
+import io.ktor.client.request.*
 
 /**
  * Interface-level instrumentation for Ktor HTTP client engines.

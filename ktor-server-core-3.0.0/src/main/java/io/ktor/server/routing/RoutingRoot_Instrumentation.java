@@ -11,8 +11,6 @@ import io.ktor.util.pipeline.PipelineContext;
 import kotlin.Unit;
 import kotlin.coroutines.Continuation;
 
-import java.util.logging.Level;
-
 @Weave(originalName = "io.ktor.server.routing.RoutingRoot")
 public class RoutingRoot_Instrumentation {
 
