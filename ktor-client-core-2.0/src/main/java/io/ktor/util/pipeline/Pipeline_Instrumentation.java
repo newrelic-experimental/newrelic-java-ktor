@@ -2,6 +2,7 @@ package io.ktor.util.pipeline;
 
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
+import com.newrelic.instrumentation.labs.ktor.client.NRFunction3Wrapper;
 import kotlin.Unit;
 import kotlin.coroutines.Continuation;
 import kotlin.jvm.functions.Function3;

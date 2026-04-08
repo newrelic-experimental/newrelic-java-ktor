@@ -3,7 +3,7 @@
 apply(plugin = "java")
 
 dependencies {
-    implementation("io.ktor:ktor-client-cio-jvm:2.0.2")
+    implementation("io.ktor:ktor-client-cio-jvm:3.2.0")
     // New Relic Java Agent dependencies
     implementation("com.newrelic.agent.java:newrelic-agent:9.1.0")
     implementation("com.newrelic.agent.java:newrelic-api:9.1.0")
@@ -16,7 +16,7 @@ dependencies {
 tasks.jar {
     manifest {
         attributes(
-            "Implementation-Title" to "com.newrelic.instrumentation.labs.ktor-client-cio-2.0.2",
+            "Implementation-Title" to "com.newrelic.instrumentation.labs.ktor-client-cio-3.2.0",
             "Implementation-Vendor" to "New Relic Labs",
             "Implementation-Vendor-Id" to "com.newrelic.labs",
             "Implementation-Version" to 1.0
@@ -25,5 +25,5 @@ tasks.jar {
 }
 
 verifyInstrumentation {
-    passesOnly("io.ktor:ktor-client-cio-jvm:[2.0.2,3.2.0)")
+    passesOnly("io.ktor:ktor-client-cio-jvm:[3.2.0,)")
 }

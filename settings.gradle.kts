@@ -3,10 +3,12 @@ rootProject.name = "ktor-instrumentation"
 // Client instrumentation modules
 include("ktor-client-core-1.2")
 include("ktor-client-core-2.0")
+include("ktor-client-core-3.3.0")
 include("ktor-client-jetty-2.0")
 include("ktor-client-jetty-jakarta-3.0")
 include("ktor-client-cio")
 include("ktor-client-cio-2.0.2")
+include("ktor-client-cio-3.2.0")
 
 // Server instrumentation modules
 include("ktor-server-core-1.1")
@@ -29,6 +31,4 @@ include("ktor-utils-1.4")
 include("ktor-utils-2.0")
 
 // Ignores Setup
-include("ktor-client-setup")
-include("ktor-utils-setup")
-include("ktor-server-setup")
+include("ktor-ignores-setup")
