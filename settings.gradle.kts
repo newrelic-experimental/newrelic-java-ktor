@@ -4,6 +4,7 @@ rootProject.name = "ktor-instrumentation"
 include("ktor-client-core-1.2")
 include("ktor-client-core-2.0")
 include("ktor-client-core-3.3.0")
+include("ktor-client-core-3.0")
 include("ktor-client-jetty-2.0")
 include("ktor-client-jetty-jakarta-3.0")
 include("ktor-client-cio")

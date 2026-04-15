@@ -23,7 +23,8 @@ Provides instrumentation of both the client and server sides of Ktor.  This incl
 
 ## Installation
 
-It is recommended to also use the instrumentation for Kotlin Coroutines: https://github.com/newrelic/newrelic-java-kotlin-coroutines  
+It is recommended to use version 8.25.1 or later of the Java Agent as those versions contain instrumentation for Kotlin Coroutines.  If you use an earlier version of the Java Agent then use the last set of instrumentation in the archived repo for Kotlin Coroutines (https://github.com/newrelic/newrelic-java-kotlin-coroutines/releases/tag/v1.0.8).   
+  
 Additionally it recommended to version 8.20.0 of the New Relic Java Agent in order to avoid problems with the retransformation of Kotlin classes.  This requires you to include a system property in the startup arguments of your application.  Include -Dnewrelic.config.class_transformer.clear_return_stacks=true   
 See 8.20.0 Release Notes for more details (https://docs.newrelic.com/docs/release-notes/agent-release-notes/java-release-notes/java-agent-8200/)   
    
@@ -40,9 +41,12 @@ After deployment, you should get route names for your web transactions instead o
 You should also see deeper visibiity into what is happening in your application via the enhanced transaction traces/distributed traces provided by this instrumentation.    
    
 ### Recommended Kotlin Coroutine Configuration   
-Ktor intiates a long running lazy Coroutine that will dominate the transaction times for your application unless it is ignored.  Please use this version or later (https://github.com/newrelic/newrelic-java-kotlin-coroutines/releases/tag/v1.0.4) to enable this feature and  add io.ktor.server.netty.cio.RequestBodyHandler to the scopes elemeent in the Coroutines stanza in newrelic.yml as shown here: https://github.com/newrelic/newrelic-java-kotlin-coroutines?tab=readme-ov-file#configuring-scopes-to-ignore    
+Ktor initiates a long running lazy Coroutine that will dominate the transaction times for your application unless it is ignored.  Please use this version or later (https://github.com/newrelic/newrelic-java-kotlin-coroutines/releases/tag/v1.0.4) to enable this feature and  add io.ktor.server.netty.cio.RequestBodyHandler to the scopes elemeent in the Coroutines stanza in newrelic.yml as shown here: https://github.com/newrelic/newrelic-java-kotlin-coroutines?tab=readme-ov-file#configuring-scopes-to-ignore    
 The Kotlin Coroutines instrumentation also will trace suspend functions so it recommended that you ignore internal Ktor suspend functions by adding the regular expression ".\*io\\.ktor\\..\*" to the list of suspends to ignore.   
    
+## Notes   
+If using the Ktor CIO Http Client, it currently splits into several different transactions.  Two of these are the major ones, the first will track the actual external call response time and the second will track the request timeout.  The others are typically of short duration.  
+This problem requires a change to the Kotlin Coroutine instrumentation that will be fixed in an upcoming Java Agent release.  After the release there will be a single transaction.   
 ## Support
 
 New Relic has open-sourced this project. This project is provided AS-IS WITHOUT WARRANTY OR DEDICATED SUPPORT. Issues and contributions should be reported to the project here on GitHub.
@@ -63,4 +67,3 @@ If you believe you have found a security vulnerability in this project or any of
 
 New Relic Java Instrumentation for Ktor is licensed under the [Apache 2.0](http://apache.org/licenses/LICENSE-2.0.txt) License.
 
->[If applicable: [Project Name] also uses source code from third-party libraries. You can find full details on which libraries are used and the terms under which they are licensed in the third-party notices document.]

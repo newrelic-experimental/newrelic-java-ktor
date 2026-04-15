@@ -8,7 +8,6 @@ import com.newrelic.instrumentation.labs.ktor.client.KtorHeaderWrapper;
 import io.ktor.client.call.HttpClientCall;
 import io.ktor.client.request.HttpRequestBuilder;
 import io.ktor.http.HeadersBuilder;
-import io.ktor.http.HttpHeaders;
 import kotlin.coroutines.Continuation;
 
 /*
