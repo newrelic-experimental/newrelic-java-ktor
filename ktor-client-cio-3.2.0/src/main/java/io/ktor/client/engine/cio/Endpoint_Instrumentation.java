@@ -31,17 +31,17 @@ public class Endpoint_Instrumentation {
 
     @Trace
     public Object execute(HttpRequestData request, CoroutineContext coroutineContext, Continuation<? super HttpResponseData> continuation) {
-        if (request != null && segment == null) {
-            Url url = request.getUrl();
-            String urlString = null;
-            if (url != null) {
-                urlString = url.toString();
-                URI uri = URI.create(url.toString());
-                HttpParameters httpParameters = HttpParameters.library("Ktor-CIO-Client").uri(uri).procedure(request.getMethod().toString()).noInboundHeaders().build();
-                segment = NewRelic.getAgent().getTransaction().startSegment("CIOClientRequest");
-                segment.reportAsExternal(httpParameters);
-            }
-        }
+//        if (request != null && segment == null) {
+//            Url url = request.getUrl();
+//            String urlString = null;
+//            if (url != null) {
+//                urlString = url.toString();
+//                URI uri = URI.create(url.toString());
+//                HttpParameters httpParameters = HttpParameters.library("Ktor-CIO-Client").uri(uri).procedure(request.getMethod().toString()).noInboundHeaders().build();
+//                segment = NewRelic.getAgent().getTransaction().startSegment("CIOClientRequest");
+//                segment.reportAsExternal(httpParameters);
+//            }
+//        }
         return Weaver.callOriginal();
     }
 

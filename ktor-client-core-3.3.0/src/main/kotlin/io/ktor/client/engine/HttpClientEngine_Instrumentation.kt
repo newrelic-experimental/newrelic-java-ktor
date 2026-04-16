@@ -1,16 +1,12 @@
 package io.ktor.client.engine
 
 import com.newrelic.api.agent.NewRelic
-import com.newrelic.api.agent.Token
 import com.newrelic.api.agent.Trace
 import com.newrelic.api.agent.weaver.MatchType
 import com.newrelic.api.agent.weaver.Weave
 import com.newrelic.api.agent.weaver.Weaver
-import com.newrelic.instrumentation.labs.ktor.client.InstrumentationUtils
-import io.ktor.client.request.HttpRequestData
-import io.ktor.client.request.HttpResponseData
+import io.ktor.client.request.*
 import kotlinx.coroutines.CoroutineScope
-import kotlin.coroutines.coroutineContext
 
 /**
  * Interface-level instrumentation for Ktor HTTP client engines.
