@@ -35,7 +35,7 @@ jobs:
 
       - name: Build with Gradle and No verifyInstrumentation [ Needs High Memory]
         run: |
-         . ./gradlew clean build install 
+         ./gradlew clean build install 
 
       - name: Identify Release Type
         id: define_release_type
