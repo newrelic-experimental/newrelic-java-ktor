@@ -10,7 +10,6 @@ import com.newrelic.api.agent.weaver.Weave
 import com.newrelic.api.agent.weaver.Weaver
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
-import java.util.logging.Level
 
 @Weave(originalName = "io.ktor.server.servlet.KtorServlet", type = MatchType.BaseClass)
 public abstract class KtorServlet_Instrumentation {
@@ -58,12 +57,6 @@ public abstract class KtorServlet_Instrumentation {
         }
 
         requestToken = transaction.getToken()
-        if (requestToken != null && requestToken!!.isActive()) {
-            NewRelic.getAgent().getLogger().log(
-                Level.FINER,
-                "Created async token for KtorServlet request: {0}", uri
-            )
-        }
 
         try {
             Weaver.callOriginal<Any>()
@@ -71,10 +64,6 @@ public abstract class KtorServlet_Instrumentation {
             if (requestToken != null) {
                 if (requestToken!!.isActive()) {
                     requestToken!!.expire()
-                    NewRelic.getAgent().getLogger().log(
-                        Level.FINER,
-                        "Expired async token for KtorServlet request: {0}", uri
-                    )
                 }
                 requestToken = null
             }

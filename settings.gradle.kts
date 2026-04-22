@@ -6,8 +6,6 @@ include("ktor-client-core-2.0")
 include("ktor-client-core-3.0")
 include("ktor-client-jetty-2.0")
 include("ktor-client-jetty-jakarta-3.0")
-include("ktor-client-cio")
-include("ktor-client-cio-2.0.2")
 
 // Server instrumentation modules
 include("ktor-server-core-1.1")

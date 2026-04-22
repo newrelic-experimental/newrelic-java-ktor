@@ -17,7 +17,6 @@ public class RoutingPipelineCall_Instrumentation {
 
     public RoutingPipelineCall_Instrumentation(PipelineCall pipelineCall, RoutingNode routingNode,CoroutineContext coroutineContext,
             ApplicationReceivePipeline applicationReceivePipeline, ApplicationSendPipeline applicationSendPipeline, Parameters parameters) {
-        NewRelic.getAgent().getLogger().log(Level.FINE, "Call to RoutingPipelineCall.<init>({0}, {1}, {2}, {3})", pipelineCall, routingNode, coroutineContext, applicationReceivePipeline, applicationSendPipeline, parameters);
         KtorExtendedRequest extendedRequest = new KtorExtendedRequest(pipelineCall);
         NewRelic.getAgent().getTransaction().setWebRequest(extendedRequest);
         NewRelic.getAgent().getTransaction().setTransactionName(TransactionNamePriority.CUSTOM_HIGH, false, "KtorServerRouting", routingNode.toString());

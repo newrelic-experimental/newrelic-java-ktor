@@ -18,7 +18,7 @@ public class NRFunction2Wrapper<R,S,T>  implements Function2<R,S,T> {
     }
 
     @Override
-    @Trace(dispatcher = true)
+    @Trace
     public T invoke(R r, S s) {
         return delegate != null ? delegate.invoke(r, s) : null;
     }
