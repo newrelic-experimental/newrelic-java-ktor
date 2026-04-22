@@ -16,22 +16,21 @@ public class KtorSetupPremain {
     private static ExecutorService executor = Executors.newFixedThreadPool(3);
 
     public static void premain(String agentArgs, Instrumentation inst) {
-        NewRelic.getAgent().getLogger().log(Level.INFO, "KtorIgnoresPremain called");
+        NewRelic.getAgent().getLogger().log(Level.FINER, "KtorIgnoresPremain called");
         CompletableFuture<Void> future = new CompletableFuture<>();
         executor.submit(new Setup(future));
-        NewRelic.getAgent().getLogger().log(Level.INFO, "Setup submitted to Executor");
+        NewRelic.getAgent().getLogger().log(Level.FINER, "Setup submitted to Executor");
     }
 
     private static void await(CompletableFuture<Void> future) {
         try {
             future.get();
-            NewRelic.getAgent().getLogger().log(Level.INFO, "Ktor Ignores has completed successfully");
+            NewRelic.getAgent().getLogger().log(Level.FINER, "Ktor Ignores has completed successfully");
 
         } catch (Exception e) {
             NewRelic.getAgent().getLogger().log(Level.FINER, e, "KtorClientPremain failed");
         }
         executor.shutdown();
-        NewRelic.getAgent().getLogger().log(Level.INFO, "Ktor Ignores executor has been shut down");
     }
 
     private static class Setup implements Runnable {
@@ -53,10 +52,7 @@ public class KtorSetupPremain {
                 NewRelic.getAgent().getLogger().log(Level.INFO, "In Setup.run, value of kotlinCoroutinesService = {0}", kotlinCoroutinesService);
                 if(kotlinCoroutinesService != null) {
                     String pattern = ".*io\\.ktor.\\..*";
-//                    kotlinCoroutinesService.addIgnoredRegexDispatched(pattern);
                     kotlinCoroutinesService.addIgnoredRegexSuspends(pattern);
-//                    kotlinCoroutinesService.addIgnoredRegexScope(pattern);
-//                    kotlinCoroutinesService.addIgnoredRegExContinuation(pattern);
                     kotlinCoroutinesService.reconfigure();
                     NewRelic.getAgent().getLogger().log(Level.INFO, "KtorIgnoresPremain has been initialized using pattern: {0}", pattern);
                     initialized = true;

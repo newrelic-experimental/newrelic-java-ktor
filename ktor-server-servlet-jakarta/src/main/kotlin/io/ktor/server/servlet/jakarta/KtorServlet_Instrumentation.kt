@@ -64,12 +64,6 @@ public abstract class KtorServlet_Instrumentation {
         }
 
         requestToken = transaction.getToken()
-        if (requestToken != null && requestToken!!.isActive()) {
-            NewRelic.getAgent().getLogger().log(
-                Level.FINER,
-                "Created async token for KtorServlet request: {0}", uri
-            )
-        }
 
         try {
             Weaver.callOriginal<Any>()
@@ -77,10 +71,6 @@ public abstract class KtorServlet_Instrumentation {
             if (requestToken != null) {
                 if (requestToken!!.isActive()) {
                     requestToken!!.expire()
-                    NewRelic.getAgent().getLogger().log(
-                        Level.FINER,
-                        "Expired async token for KtorServlet request: {0}", uri
-                    )
                 }
                 requestToken = null
             }

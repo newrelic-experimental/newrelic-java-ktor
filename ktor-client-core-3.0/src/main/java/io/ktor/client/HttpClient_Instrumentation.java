@@ -1,30 +1,38 @@
 package io.ktor.client;
 
-import com.newrelic.api.agent.NewRelic;
-import com.newrelic.api.agent.Trace;
+import com.newrelic.agent.bridge.ExitTracer;
+import com.newrelic.api.agent.weaver.NewField;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
-import com.newrelic.instrumentation.labs.ktor.client.KtorHeaderWrapper;
+import com.newrelic.instrumentation.labs.ktor.client.KtorClientUtils;
 import io.ktor.client.call.HttpClientCall;
+import io.ktor.client.engine.HttpClientEngine;
+import io.ktor.client.engine.HttpClientEngineConfig;
 import io.ktor.client.request.HttpRequestBuilder;
-import io.ktor.http.HeadersBuilder;
 import kotlin.coroutines.Continuation;
 
-/*
-* need to do this one in Java because the execute method is internal and it is
-* hard to get it to compile correctly in kotlin
-*/
 @Weave(originalName = "io.ktor.client.HttpClient")
 public class HttpClient_Instrumentation {
 
-    @Trace(dispatcher = true)
-    public Object execute$ktor_client_core(HttpRequestBuilder requestBuilder, Continuation<? super HttpClientCall> continuation) {
-        if(requestBuilder != null) {
-            HeadersBuilder headers = requestBuilder.getHeaders();
-            if(headers != null) {
-                NewRelic.getAgent().getTransaction().insertDistributedTraceHeaders(new KtorHeaderWrapper(headers));
-            }
-        }
-        return Weaver.callOriginal();
+    @NewField
+    private boolean needsLeaf = false;
+
+    public HttpClient_Instrumentation(HttpClientEngine clientEngine, HttpClientConfig<? extends HttpClientEngineConfig> userConfig) {
+        String engineType = clientEngine.getClass().getSimpleName();
+        needsLeaf = KtorClientUtils.needsLeaf(engineType);
+
     }
+
+    public Object execute$ktor_client_core(HttpRequestBuilder builder, Continuation<? super HttpClientCall> continuation) {
+        ExitTracer exitTracer = null;
+        if (needsLeaf && builder != null) {
+            exitTracer = KtorClientUtils.getExitTracer(this);
+        }
+        Object result = Weaver.callOriginal();
+        if (exitTracer != null) {
+            exitTracer.finish(0, result);
+        }
+        return result;
+    }
+
 }

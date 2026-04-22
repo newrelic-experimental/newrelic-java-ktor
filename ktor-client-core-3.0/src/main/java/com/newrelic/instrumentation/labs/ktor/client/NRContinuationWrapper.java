@@ -7,9 +7,7 @@ import com.newrelic.api.agent.Segment;
 import com.newrelic.api.agent.Trace;
 import kotlin.coroutines.Continuation;
 import kotlin.coroutines.CoroutineContext;
-import kotlin.coroutines.jvm.internal.BaseContinuationImpl;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class NRContinuationWrapper<T> implements Continuation<T> {
 
@@ -30,7 +28,7 @@ public class NRContinuationWrapper<T> implements Continuation<T> {
     }
 
     @Override
-    @Trace(dispatcher = true)
+    @Trace
     public void resumeWith(@NotNull Object o) {
         if(segment != null) {
             segment.end();
