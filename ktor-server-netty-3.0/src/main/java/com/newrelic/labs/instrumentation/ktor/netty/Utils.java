@@ -1,9 +1,9 @@
 package com.newrelic.labs.instrumentation.ktor.netty;
 
 import com.newrelic.instrumentation.labs.ktor.netty.CoroutineNameUtilsKt;
-import io.ktor.http.HttpMethod;
-import io.ktor.http.RequestConnectionPoint;
 import io.ktor.server.application.Application;
+import io.netty.handler.codec.http.HttpMethod;
+import io.netty.handler.codec.http.HttpRequest;
 import kotlin.coroutines.CoroutineContext;
 import org.jetbrains.annotations.Nullable;
 
@@ -16,17 +16,7 @@ public class Utils {
 		return null;
 	}
 	
-	public static String getApplicationName(Application app) {
-		if(app != null) {
-			CoroutineContext ctx = app.getCoroutineContext();
-			if(ctx != null) {
-				return getCoroutineName(ctx);
-			}
-		}
-		return null;
-	}
-	
-	public static String getTransactionName(RequestConnectionPoint point) {
+	public static String getTransactionName(HttpRequest point) {
 		StringBuffer sb = new StringBuffer();
 		String uri = point.getUri();
 		if(uri != null) {
@@ -39,7 +29,7 @@ public class Utils {
 		}
 		HttpMethod method = point.getMethod();
 		if(method != null) {
-			String value = method.getValue();
+			String value = method.name();
 			if(value != null && !value.isEmpty()) {
 				sb.append(" - {");
 				sb.append(value);

@@ -4,7 +4,7 @@ import com.newrelic.api.agent.HeaderType
 import com.newrelic.api.agent.Headers
 import java.util.Collections
 
-class KtorNettyHeaders(private val ktorHeaders: io.ktor.http.Headers) : Headers {
+class KtorNettyHeaders(private val nettyHeaders: io.netty.handler.codec.http.HttpHeaders) : Headers {
 
 
     override fun getHeaderType(): HeaderType? {
@@ -12,12 +12,12 @@ class KtorNettyHeaders(private val ktorHeaders: io.ktor.http.Headers) : Headers 
     }
 
     override fun getHeader(name: String): String? {
-        val value = ktorHeaders.get(name)
+        val value = nettyHeaders.get(name)
         return value
     }
 
     override fun getHeaders(name: String): Collection<String?>? {
-        val values = ktorHeaders.getAll(name)
+        val values = nettyHeaders.getAll(name)
         if (values != null) {
             return values
         } else {
@@ -32,10 +32,10 @@ class KtorNettyHeaders(private val ktorHeaders: io.ktor.http.Headers) : Headers 
     }
 
     override fun getHeaderNames(): Collection<String?>? {
-       return ktorHeaders.names()
+       return nettyHeaders.names()
     }
 
     override fun containsHeader(name: String): Boolean {
-        return ktorHeaders.contains(name)
+        return nettyHeaders.contains(name)
     }
 }
